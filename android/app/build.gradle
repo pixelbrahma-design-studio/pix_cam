@@ -60,6 +60,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationId "com.example.pix_cam.dev"
+            resValue "string", "app_name", "DEV Pix Cam"
+        }
+        prod {
+            dimension "app"
+            applicationId "com.example.pix_cam"
+            resValue "string", "app_name", "Pix Cam"
+        }
+    }
 }
 
 flutter {
