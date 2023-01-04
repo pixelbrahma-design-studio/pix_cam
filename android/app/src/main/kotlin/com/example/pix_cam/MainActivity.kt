@@ -1,4 +1,4 @@
-package com.example.pix_cam
+package com.pixelbrahma.pix_cam
 
 //import io.flutter.embedding.android.FlutterActivity
 import androidx.annotation.NonNull;
