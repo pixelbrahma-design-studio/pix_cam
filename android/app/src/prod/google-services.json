@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "941278245703",
+    "project_id": "pixcamprod",
+    "storage_bucket": "pixcamprod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941278245703:android:fc3aa23c90c6f0f91a1262",
+        "android_client_info": {
+          "package_name": "com.pixelbrahma.pix_cam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941278245703-v3kdeqevm7ta76gqrcgpnt58a29q1701.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpbcbdVeNkeqizDnO87S5LwFReGYc9_Hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941278245703-v3kdeqevm7ta76gqrcgpnt58a29q1701.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

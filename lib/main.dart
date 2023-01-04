@@ -1,6 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pix_cam/firebase/dev/firebase_options.dart' as dev;
+import 'package:pix_cam/firebase/prod/firebase_options.dart' as prod;
+import 'package:pix_cam/my_home_page.dart';
 import 'flavor_settings.dart';
 
 Future<void> main() async {
@@ -10,11 +14,19 @@ Future<void> main() async {
 
   if(!kIsWeb) {
     settings = await _getFlavorSettings();
-    print('API URL ${settings.apiBaseUrl}');
+
+    if(settings.flavor == 'dev') {
+      await Firebase.initializeApp(
+        options: dev.DefaultFirebaseOptions.currentPlatform,
+      );
+    }else {
+      await Firebase.initializeApp(
+        options: prod.DefaultFirebaseOptions.currentPlatform,
+      );
+    }
   } else {
     settings = null;
   }
-
 
   runApp(MyApp(selectedFlavor: kIsWeb ? 'prod' :  settings!.flavor,));
 }
@@ -48,39 +60,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Pix Cam'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Hello',
-            ),
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
