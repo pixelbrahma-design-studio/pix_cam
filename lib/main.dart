@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'flavor_settings.dart';
@@ -5,10 +6,17 @@ import 'flavor_settings.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final settings = await _getFlavorSettings();
-  print('API URL ${settings.apiBaseUrl}');
+  final FlavorSettings? settings;
 
-  runApp(MyApp(selectedFlavor: settings.flavor,));
+  if(!kIsWeb) {
+    settings = await _getFlavorSettings();
+    print('API URL ${settings.apiBaseUrl}');
+  } else {
+    settings = null;
+  }
+
+
+  runApp(MyApp(selectedFlavor: kIsWeb ? 'prod' :  settings!.flavor,));
 }
 
 Future<FlavorSettings> _getFlavorSettings() async {
