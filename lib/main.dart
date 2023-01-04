@@ -8,7 +8,7 @@ Future<void> main() async {
   final settings = await _getFlavorSettings();
   print('API URL ${settings.apiBaseUrl}');
 
-  runApp(const MyApp());
+  runApp(MyApp(selectedFlavor: settings.flavor,));
 }
 
 Future<FlavorSettings> _getFlavorSettings() async {
@@ -27,17 +27,19 @@ Future<FlavorSettings> _getFlavorSettings() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  String selectedFlavor;
+  MyApp({super.key, required this.selectedFlavor});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: selectedFlavor == 'dev' ? true : false,
+      title: 'Pix Cam',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Pix Cam'),
     );
   }
 }
