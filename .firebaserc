@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "pixcam",
+    "dev": "pixcam",
+    "prod": "pixcamprod"
+  }
+}
