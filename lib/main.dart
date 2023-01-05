@@ -5,45 +5,38 @@ import 'package:flutter/services.dart';
 import 'package:pix_cam/firebase/dev/firebase_options.dart' as dev;
 import 'package:pix_cam/firebase/prod/firebase_options.dart' as prod;
 import 'package:pix_cam/my_home_page.dart';
-import 'flavor_settings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final FlavorSettings? settings;
+  final String? flavor;
 
-  if(!kIsWeb) {
-    settings = await _getFlavorSettings();
+  if (!kIsWeb) {
+    flavor = await _getFlavorSettings();
 
-    if(settings.flavor == 'dev') {
+    if (flavor == 'dev') {
       await Firebase.initializeApp(
         options: dev.DefaultFirebaseOptions.currentPlatform,
       );
-    }else {
+    } else {
       await Firebase.initializeApp(
         options: prod.DefaultFirebaseOptions.currentPlatform,
       );
     }
   } else {
-    settings = null;
+    flavor = null;
   }
 
-  runApp(MyApp(selectedFlavor: kIsWeb ? 'prod' :  settings!.flavor,));
+  runApp(MyApp(
+    selectedFlavor: kIsWeb ? 'prod' : flavor!,
+  ));
 }
 
-Future<FlavorSettings> _getFlavorSettings() async {
-  String? flavor = await const MethodChannel('flavor')
-      .invokeMethod<String>('getFlavor');
+Future<String?> _getFlavorSettings() async {
+  String? flavor =
+      await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
 
-  print('STARTED WITH FLAVOR $flavor');
-
-  if (flavor == 'dev') {
-    return FlavorSettings.dev();
-  } else if (flavor == 'prod') {
-    return FlavorSettings.prod();
-  } else {
-    throw Exception("Unknown flavor: $flavor");
-  }
+  return flavor;
 }
 
 class MyApp extends StatelessWidget {
