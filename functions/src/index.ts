@@ -7,33 +7,23 @@ import {BigQuery} from "@google-cloud/bigquery";
 
 admin.initializeApp();
 
+const bigquery = new BigQuery({location: "asia-south1"});
+
 export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   functions.logger.info("Hello logs!", {structuredData: true});
 
-  const PROJECTID_DEV = "pixcam";
-  const DATASETID_DEV = "testcam";
-  const TABLEID_DEV = "testTable";
+  const PROJECT_ID = "pixcam";
+  const DATASET_ID = "testcam";
+  const TABLE_ID = "testTable";
 
-  const bigquery = new BigQuery();
-
-  //   const dataset = bigqueryClient.dataset(DATASETID_DEV);
-  //   const [table] = await dataset.table(TABLEID_DEV).get();
-
-  console.log("Table:");
-
-
-  const query = "SELECT * FROM pixcam.testcam.testTable LIMIT 10;";
+  const query =
+  `SELECT * FROM ${PROJECT_ID}.${DATASET_ID}.${TABLE_ID} LIMIT 10;`;
 
   const options = {
     query: query,
     location: "asia-south1",
-    useLegacySql: true,
+    useLegacySql: false,
     allowLargeResult: true,
-    destinationTable: {
-      projectId: PROJECTID_DEV,
-      datasetId: DATASETID_DEV,
-      tableId: TABLEID_DEV,
-    },
   };
 
   const [job] = await bigquery.createQueryJob(options);
@@ -43,8 +33,4 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   console.log("Rows:");
   rows.forEach((row) => console.log(row));
   return [rows];
-
-  //   console.log(table.metadata.tableReference);
-
-//   return [table];
 });
