@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pix_cam/demo_home.dart';
 import 'package:pix_cam/firebase/dev/firebase_options.dart' as dev;
 import 'package:pix_cam/firebase/prod/firebase_options.dart' as prod;
 import 'package:pix_cam/my_home_page.dart';
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Pix Cam'),
+      home: DemoHome(title: 'Pix Cam Demo'),
+      // home: const MyHomePage(title: 'Pix Cam'),
     );
   }
 }
