@@ -1,5 +1,8 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:pix_cam/models/event.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class DemoHome extends StatefulWidget {
   String title;
@@ -10,7 +13,15 @@ class DemoHome extends StatefulWidget {
 }
 
 class _DemoHomeState extends State<DemoHome> {
-  dynamic rowData;
+  List<Event> rowData =[];
+
+  List<_SalesData> data = [
+    _SalesData('Jan', 35),
+    _SalesData('Feb', 28),
+    _SalesData('Mar', 34),
+    _SalesData('Apr', 32),
+    _SalesData('May', 40)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +29,46 @@ class _DemoHomeState extends State<DemoHome> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: rowData != null ? Text(rowData.toString()) : const Text('no data'),
+      body: Column(
+        children: [
+          // rowData != null ? Text(rowData.toString()) : const Text('no data'),
+          SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              // Chart title
+              title: ChartTitle(text: 'Half yearly sales analysis'),
+              // Enable legend
+              legend: Legend(isVisible: true),
+              // Enable tooltip
+              tooltipBehavior: TooltipBehavior(enable: true),
+              series: <ChartSeries<Event, String>>[
+                LineSeries<Event, String>(
+                    dataSource: rowData,
+                    xValueMapper: (Event event, _) => event.countEvent!.eventType,
+                    yValueMapper: (Event event, _) => event.countEvent!.id,
+                    name: 'event',
+                    // Enable data label
+                    dataLabelSettings: DataLabelSettings(isVisible: true))
+              ]),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              //Initialize the spark charts widget
+              child: SfSparkLineChart.custom(
+                //Enable the trackball
+                trackball: SparkChartTrackball(
+                    activationMode: SparkChartActivationMode.tap),
+                //Enable marker
+                marker: SparkChartMarker(
+                    displayMode: SparkChartMarkerDisplayMode.all),
+                //Enable data label
+                labelDisplayMode: SparkChartLabelDisplayMode.all,
+                xValueMapper: (int index) => data[index].year,
+                yValueMapper: (int index) => data[index].sales,
+                dataCount: 5,
+              ),
+            ),
+          )
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -37,9 +86,18 @@ class _DemoHomeState extends State<DemoHome> {
             ListTile(
               title: const Text('Det Data'),
               onTap: () async {
-                print('on click');
-                setState(() async {
-                  rowData = await getTableData();
+
+                var rowDataJson = await getTableData();
+                print('data before ${rowDataJson}');
+                rowDataJson[0].forEach((data) {
+                  print('inside map $data');
+                  rowData.add(Event.fromJson(data));
+                });
+
+                print('data ${rowData}');
+
+                setState(() {
+
                 });
 
                 Navigator.pop(context);
@@ -66,4 +124,12 @@ class _DemoHomeState extends State<DemoHome> {
     return itemsList;
 
   }
+
+}
+
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }
