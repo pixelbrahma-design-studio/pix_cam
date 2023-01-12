@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:pix_cam/models/event.dart';
+import 'package:pix_cam/models/result.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
@@ -13,15 +14,7 @@ class DemoHome extends StatefulWidget {
 }
 
 class _DemoHomeState extends State<DemoHome> {
-  List<Event> rowData = [];
-
-  List<_SalesData> data = [
-    _SalesData('Jan', 35),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
-  ];
+  List<Result> rowData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +28,35 @@ class _DemoHomeState extends State<DemoHome> {
           SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             // Chart title
-            title: ChartTitle(text: 'Half yearly sales analysis'),
+            title: ChartTitle(text: 'One day count'),
             // Enable legend
             legend: Legend(isVisible: true),
+            enableSideBySideSeriesPlacement: true,
             // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<Event, String>>[
-              LineSeries<Event, String>(
-                  dataSource: rowData,
-                  xValueMapper: (Event event, _) => event.countEvent!.eventType,
-                  yValueMapper: (Event event, _) => event.countEvent!.id,
-                  name: 'event',
-                  // Enable data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
+            series: <ChartSeries<Result, String>>[
+              ColumnSeries<Result, String>(
+                dataSource: rowData,
+                xValueMapper: (Result result, _) => result.hour.toString(),
+                yValueMapper: (Result result, _) => result.inCount,
+                name: 'In Count',
+                yAxisName: 'HOUR',
+                xAxisName: 'COUNT',
+
+                // Enable data label
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+              ),
+              ColumnSeries<Result, String>(
+                dataSource: rowData,
+                xValueMapper: (Result result, _) => result.hour.toString(),
+                yValueMapper: (Result result, _) => result.outCount,
+                name: 'Out Count',
+                yAxisName: 'HOUR',
+                xAxisName: 'COUNT',
+
+                // Enable data label
+                dataLabelSettings: DataLabelSettings(isVisible: true),
+              ),
             ],
           ),
           // Expanded(
@@ -91,7 +100,7 @@ class _DemoHomeState extends State<DemoHome> {
                 print('data before ${rowDataJson}');
                 rowDataJson[0].forEach((data) {
                   print('inside map $data');
-                  rowData.add(Event.fromJson(data));
+                  rowData.add(Result.fromJson(data));
                 });
 
                 print('data ${rowData}');
@@ -121,11 +130,4 @@ class _DemoHomeState extends State<DemoHome> {
 
     return itemsList;
   }
-}
-
-class _SalesData {
-  _SalesData(this.year, this.sales);
-
-  final String year;
-  final double sales;
 }
