@@ -36,7 +36,7 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   
   SELECT
   hour,
-  IF(OutCount IS NULL,0,OutCount) AS OutCOunt,
+  IF(OutCount IS NULL,0,OutCount) AS OutCount,
   IF(InCount IS NULL,0,InCount) AS InCount,
   IF(total IS NULL,0,total) AS total
   FROM
