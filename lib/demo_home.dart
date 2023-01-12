@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:pix_cam/models/event.dart';
+import 'package:pix_cam/models/result.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
@@ -13,7 +14,7 @@ class DemoHome extends StatefulWidget {
 }
 
 class _DemoHomeState extends State<DemoHome> {
-  List<Event> rowData = [];
+  List<Result> rowData = [];
 
   List<_SalesData> data = [
     _SalesData('Jan', 35),
@@ -40,11 +41,11 @@ class _DemoHomeState extends State<DemoHome> {
             legend: Legend(isVisible: true),
             // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<Event, String>>[
-              LineSeries<Event, String>(
+            series: <ChartSeries<Result, String>>[
+              LineSeries<Result, String>(
                   dataSource: rowData,
-                  xValueMapper: (Event event, _) => event.countEvent!.eventType,
-                  yValueMapper: (Event event, _) => event.countEvent!.id,
+                  xValueMapper: (Result result, _) => result.time.toString(),
+                  yValueMapper: (Result result, _) => result.inCount,
                   name: 'event',
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true))
@@ -91,7 +92,7 @@ class _DemoHomeState extends State<DemoHome> {
                 print('data before ${rowDataJson}');
                 rowDataJson[0].forEach((data) {
                   print('inside map $data');
-                  rowData.add(Event.fromJson(data));
+                  rowData.add(Result.fromJson(data));
                 });
 
                 print('data ${rowData}');
