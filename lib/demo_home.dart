@@ -31,7 +31,7 @@ class _DemoHomeState extends State<DemoHome> {
             title: ChartTitle(text: 'One day count'),
             // Enable legend
             legend: Legend(isVisible: true),
-            enableSideBySideSeriesPlacement: false,
+            enableSideBySideSeriesPlacement: true,
             // Enable tooltip
             tooltipBehavior: TooltipBehavior(enable: true),
             series: <ChartSeries<Result, String>>[
@@ -53,7 +53,6 @@ class _DemoHomeState extends State<DemoHome> {
                 name: 'Out Count',
                 yAxisName: 'HOUR',
                 xAxisName: 'COUNT',
-                color: Colors.red,
 
                 // Enable data label
                 dataLabelSettings: DataLabelSettings(isVisible: true),
