@@ -36,7 +36,7 @@ class _DemoHomeState extends State<DemoHome> {
           SfCartesianChart(
             primaryXAxis: CategoryAxis(),
             // Chart title
-            title: ChartTitle(text: 'Half yearly sales analysis'),
+            title: ChartTitle(text: 'One day count'),
             // Enable legend
             legend: Legend(isVisible: true),
             // Enable tooltip
@@ -44,9 +44,9 @@ class _DemoHomeState extends State<DemoHome> {
             series: <ChartSeries<Result, String>>[
               LineSeries<Result, String>(
                   dataSource: rowData,
-                  xValueMapper: (Result result, _) => result.time.toString(),
+                  xValueMapper: (Result result, _) => result.hour.toString(),
                   yValueMapper: (Result result, _) => result.inCount,
-                  name: 'event',
+                  name: 'In Count',
                   // Enable data label
                   dataLabelSettings: DataLabelSettings(isVisible: true))
             ],
