@@ -147,40 +147,47 @@ class _DemoHomeState extends State<DemoHome> {
           ),
 
           // rowData != null ? Text(rowData.toString()) : const Text('no data'),
-          SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'One day count'),
-            // Enable legend
-            legend: Legend(isVisible: true),
-            enableSideBySideSeriesPlacement: true,
-            // Enable tooltip
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<Result, String>>[
-              ColumnSeries<Result, String>(
-                dataSource: rowData,
-                xValueMapper: (Result result, _) => result.hour.toString(),
-                yValueMapper: (Result result, _) => result.inCount,
-                name: 'In Count',
-                yAxisName: 'HOUR',
-                xAxisName: 'COUNT',
+          rowData.isEmpty
+              ? const Text('No Data Available')
+              : SfCartesianChart(
+                  primaryXAxis: CategoryAxis(),
+                  // Chart title
+                  title: ChartTitle(text: 'Count Data'),
+                  // Enable legend
+                  legend: Legend(
+                    isVisible: true,
+                    position: LegendPosition.bottom,
+                  ),
+                  enableSideBySideSeriesPlacement: true,
+                  // Enable tooltip
+                  tooltipBehavior: TooltipBehavior(enable: false),
+                  series: <ChartSeries<Result, String>>[
+                    ColumnSeries<Result, String>(
+                      dataSource: rowData,
+                      xValueMapper: (Result result, _) =>
+                          result.hour.toString(),
+                      yValueMapper: (Result result, _) => result.inCount,
+                      name: 'In Count',
+                      yAxisName: 'HOUR',
+                      xAxisName: 'COUNT',
 
-                // Enable data label
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-              ),
-              ColumnSeries<Result, String>(
-                dataSource: rowData,
-                xValueMapper: (Result result, _) => result.hour.toString(),
-                yValueMapper: (Result result, _) => result.outCount,
-                name: 'Out Count',
-                yAxisName: 'HOUR',
-                xAxisName: 'COUNT',
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                    ),
+                    ColumnSeries<Result, String>(
+                      dataSource: rowData,
+                      xValueMapper: (Result result, _) =>
+                          result.hour.toString(),
+                      yValueMapper: (Result result, _) => result.outCount,
+                      name: 'Out Count',
+                      yAxisName: 'HOUR',
+                      xAxisName: 'COUNT',
 
-                // Enable data label
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-              ),
-            ],
-          ),
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                    ),
+                  ],
+                ),
           // Expanded(
           //   child: Padding(
           //     padding: const EdgeInsets.all(8.0),
@@ -216,7 +223,7 @@ class _DemoHomeState extends State<DemoHome> {
               ),
             ),
             ListTile(
-              title: const Text('Det Data'),
+              title: const Text('Fetch Count Data'),
               onTap: () async {
                 var rowDataJson = await getTableData();
                 print('data before ${rowDataJson}');
