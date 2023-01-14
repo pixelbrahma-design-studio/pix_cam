@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final results = await callable();
     var itemsList = results.data;
 
-    print(itemsList); // ["Apple", "Banana", "Cherry", "Date", "Fig", "Grapes"]
+    // print(itemsList); // ["Apple", "Banana", "Cherry", "Date", "Fig", "Grapes"]
   }
 
   @override
