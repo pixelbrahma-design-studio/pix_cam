@@ -18,6 +18,7 @@ class _DemoHomeState extends State<DemoHome> {
 
   String selectedDate = '1';
   String selectedMonth = '1';
+  String selectedYear = '2020';
 
   List<String> days = [
     '1',
@@ -68,6 +69,15 @@ class _DemoHomeState extends State<DemoHome> {
     '12',
   ];
 
+  List<String> years = [
+    '2020',
+    '2021',
+    '2022',
+    '2023',
+    '2024',
+    '2025',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,9 +105,7 @@ class _DemoHomeState extends State<DemoHome> {
                   });
                 },
               ),
-              const SizedBox(
-                width: 50,
-              ),
+              const Spacer(),
               const Text('Select Month'),
               const SizedBox(width: 20),
               DropdownButton(
@@ -116,6 +124,26 @@ class _DemoHomeState extends State<DemoHome> {
                 },
               ),
             ],
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          const Text('Select Year'),
+          const SizedBox(width: 20),
+          DropdownButton(
+            value: selectedYear,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            items: years.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedYear = newValue!;
+              });
+            },
           ),
 
           // rowData != null ? Text(rowData.toString()) : const Text('no data'),
@@ -222,7 +250,8 @@ class _DemoHomeState extends State<DemoHome> {
     final results = await callable.call({
       'query': 'some query',
       'selectedDay': selectedDate,
-      'selectedMonth': selectedMonth
+      'selectedMonth': selectedMonth,
+      'selectedYear': selectedYear,
     });
     var itemsList = results.data;
 
