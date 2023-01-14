@@ -30,7 +30,7 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   pixcam.testcam.testTable
   WHERE
   EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
-  AT TIME ZONE "Asia/Kolkata") = 20
+  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedDay)}
   GROUP BY
   hour)
   

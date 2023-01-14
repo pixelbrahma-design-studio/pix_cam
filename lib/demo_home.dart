@@ -16,6 +16,42 @@ class DemoHome extends StatefulWidget {
 class _DemoHomeState extends State<DemoHome> {
   List<Result> rowData = [];
 
+  String selectedDate = '1';
+
+  List<String> days = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +60,28 @@ class _DemoHomeState extends State<DemoHome> {
       ),
       body: Column(
         children: [
+          DropdownButton(
+            // Initial Value
+            value: selectedDate,
+
+            // Down Arrow Icon
+            icon: const Icon(Icons.keyboard_arrow_down),
+
+            // Array list of items
+            items: days.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items),
+              );
+            }).toList(),
+            // After selecting the desired option,it will
+            // change button value to selected value
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedDate = newValue!;
+              });
+            },
+          ),
           // rowData != null ? Text(rowData.toString()) : const Text('no data'),
           SfCartesianChart(
             primaryXAxis: CategoryAxis(),
@@ -125,7 +183,8 @@ class _DemoHomeState extends State<DemoHome> {
   Future<dynamic> getTableData() async {
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('fetchDataQuery');
-    final results = await callable.call({'query': 'some query'});
+    final results = await callable
+        .call({'query': 'some query', 'selectedDay': selectedDate});
     var itemsList = results.data;
 
     return itemsList;
