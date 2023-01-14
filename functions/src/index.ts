@@ -28,9 +28,10 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   COUNT(CASE WHEN countEvent.eventType = "In" THEN 1 END ) InCount,
   FROM
   pixcam.testcam.testTable
-  WHERE
-  EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
-  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedDay)}
+  WHERE (EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
+  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedDay)} AND 
+  EXTRACT(MONTH FROM TIMESTAMP(countEvent.timeStamp) 
+  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedMonth)})
   GROUP BY
   hour)
   
