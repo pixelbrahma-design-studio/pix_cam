@@ -18,6 +18,7 @@ class _DemoHomeState extends State<DemoHome> {
 
   String selectedDate = '1';
   String selectedMonth = '1';
+  String selectedYear = '2020';
 
   List<String> days = [
     '1',
@@ -68,6 +69,15 @@ class _DemoHomeState extends State<DemoHome> {
     '12',
   ];
 
+  List<String> years = [
+    '2020',
+    '2021',
+    '2022',
+    '2023',
+    '2024',
+    '2025',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,9 +105,7 @@ class _DemoHomeState extends State<DemoHome> {
                   });
                 },
               ),
-              const SizedBox(
-                width: 50,
-              ),
+              const Spacer(),
               const Text('Select Month'),
               const SizedBox(width: 20),
               DropdownButton(
@@ -117,42 +125,69 @@ class _DemoHomeState extends State<DemoHome> {
               ),
             ],
           ),
+          const SizedBox(
+            width: 10,
+          ),
+          const Text('Select Year'),
+          const SizedBox(width: 20),
+          DropdownButton(
+            value: selectedYear,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            items: years.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedYear = newValue!;
+              });
+            },
+          ),
 
           // rowData != null ? Text(rowData.toString()) : const Text('no data'),
-          SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'One day count'),
-            // Enable legend
-            legend: Legend(isVisible: true),
-            enableSideBySideSeriesPlacement: true,
-            // Enable tooltip
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<Result, String>>[
-              ColumnSeries<Result, String>(
-                dataSource: rowData,
-                xValueMapper: (Result result, _) => result.hour.toString(),
-                yValueMapper: (Result result, _) => result.inCount,
-                name: 'In Count',
-                yAxisName: 'HOUR',
-                xAxisName: 'COUNT',
+          rowData.isEmpty
+              ? const Text('No Data Available')
+              : SfCartesianChart(
+                  primaryXAxis: CategoryAxis(),
+                  // Chart title
+                  title: ChartTitle(text: 'Count Data'),
+                  // Enable legend
+                  legend: Legend(
+                    isVisible: true,
+                    position: LegendPosition.bottom,
+                  ),
+                  enableSideBySideSeriesPlacement: true,
+                  // Enable tooltip
+                  tooltipBehavior: TooltipBehavior(enable: false),
+                  series: <ChartSeries<Result, String>>[
+                    ColumnSeries<Result, String>(
+                      dataSource: rowData,
+                      xValueMapper: (Result result, _) =>
+                          result.hour.toString(),
+                      yValueMapper: (Result result, _) => result.inCount,
+                      name: 'In Count',
+                      yAxisName: 'HOUR',
+                      xAxisName: 'COUNT',
 
-                // Enable data label
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-              ),
-              ColumnSeries<Result, String>(
-                dataSource: rowData,
-                xValueMapper: (Result result, _) => result.hour.toString(),
-                yValueMapper: (Result result, _) => result.outCount,
-                name: 'Out Count',
-                yAxisName: 'HOUR',
-                xAxisName: 'COUNT',
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                    ),
+                    ColumnSeries<Result, String>(
+                      dataSource: rowData,
+                      xValueMapper: (Result result, _) =>
+                          result.hour.toString(),
+                      yValueMapper: (Result result, _) => result.outCount,
+                      name: 'Out Count',
+                      yAxisName: 'HOUR',
+                      xAxisName: 'COUNT',
 
-                // Enable data label
-                dataLabelSettings: DataLabelSettings(isVisible: true),
-              ),
-            ],
-          ),
+                      // Enable data label
+                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                    ),
+                  ],
+                ),
           // Expanded(
           //   child: Padding(
           //     padding: const EdgeInsets.all(8.0),
@@ -188,7 +223,7 @@ class _DemoHomeState extends State<DemoHome> {
               ),
             ),
             ListTile(
-              title: const Text('Det Data'),
+              title: const Text('Fetch Count Data'),
               onTap: () async {
                 var rowDataJson = await getTableData();
                 print('data before ${rowDataJson}');
@@ -222,7 +257,8 @@ class _DemoHomeState extends State<DemoHome> {
     final results = await callable.call({
       'query': 'some query',
       'selectedDay': selectedDate,
-      'selectedMonth': selectedMonth
+      'selectedMonth': selectedMonth,
+      'selectedYear': selectedYear,
     });
     var itemsList = results.data;
 

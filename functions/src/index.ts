@@ -31,7 +31,9 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   WHERE (EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
   AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedDay)} AND 
   EXTRACT(MONTH FROM TIMESTAMP(countEvent.timeStamp) 
-  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedMonth)})
+  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedMonth)} AND
+  EXTRACT(YEAR FROM TIMESTAMP(countEvent.timeStamp) 
+  AT TIME ZONE "Asia/Kolkata") = ${parseInt(data.selectedYear)})
   GROUP BY
   hour)
   
