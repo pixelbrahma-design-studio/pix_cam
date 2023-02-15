@@ -119,7 +119,7 @@ class _DemoHomeState extends State<DemoHome> {
 
                               // Enable data label
                               dataLabelSettings:
-                                  DataLabelSettings(isVisible: true),
+                                  const DataLabelSettings(isVisible: true),
                             ),
                             ColumnSeries<Result, String>(
                               dataSource: rowData,
@@ -133,7 +133,7 @@ class _DemoHomeState extends State<DemoHome> {
 
                               // Enable data label
                               dataLabelSettings:
-                                  DataLabelSettings(isVisible: true),
+                                  const DataLabelSettings(isVisible: true),
                             ),
                           ],
                         ),
