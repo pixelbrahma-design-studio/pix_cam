@@ -9,7 +9,7 @@ import 'package:pix_cam/my_home_page.dart';
 
 Future<String?> _getFlavorSettings() async {
   String? flavor =
-  await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
+      await const MethodChannel('flavor').invokeMethod<String>('getFlavor');
 
   return flavor;
 }
@@ -21,7 +21,7 @@ Future<void> main() async {
   final String? flavor;
 
   // for only web environment
-  const String webFlavor  = String.fromEnvironment('FLAVOR');
+  const String webFlavor = String.fromEnvironment('FLAVOR');
 
   if (!kIsWeb) {
     flavor = await _getFlavorSettings();

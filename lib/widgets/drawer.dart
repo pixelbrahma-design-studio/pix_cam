@@ -38,10 +38,10 @@ class DrawerWidget extends StatelessWidget {
                         DateRangePickerSelectionMode.single,
                     onSubmit: (DateRangePickerSelectionChangedArgs args) {
                       print('selected Date : $args');
-                      if(args.value != null) {
-                        MaterialPageRoute(builder: (context) => DemoHome(title: 'ttest', selectedDateArgs: args,));
+                      if (args.value != null) {
+                        // MaterialPageRoute(builder: (context) => DemoHome(title: 'ttest', selectedDateArgs: args,));
                         Navigator.pop(context);
-                      }else {
+                      } else {
                         showSnackBar(context, 'Please Select A Date');
                         Navigator.pop(context);
                       }
