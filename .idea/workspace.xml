@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfdab6bc-9d82-4d90-aeae-efd76f92e775" name="Changes" comment="added datepicker, working on dynamic data sow in graph" />
+    <list default="true" id="dfdab6bc-9d82-4d90-aeae-efd76f92e775" name="Changes" comment="added datepicker, working on dynamic data sow in graph">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
