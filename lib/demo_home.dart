@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pix_cam/application/hourly/hourly_watcher/hourly_watcher_bloc.dart';
+import 'package:pix_cam/domain/hourly/hourly.dart';
+import 'package:pix_cam/injection.dart';
 import 'package:pix_cam/models/event.dart';
 import 'package:pix_cam/models/result.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -15,9 +19,9 @@ class DemoHome extends StatefulWidget {
 class _DemoHomeState extends State<DemoHome> {
   List<Result> rowData = [];
 
-  String selectedDate = '1';
-  String selectedMonth = '1';
-  String selectedYear = '2020';
+  String selectedDate = '20';
+  String selectedMonth = '12';
+  String selectedYear = '2022';
 
   List<String> days = [
     '1',
@@ -78,175 +82,251 @@ class _DemoHomeState extends State<DemoHome> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('inside: demo_home');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              const Text('Select Day'),
-              const SizedBox(width: 20),
-              DropdownButton(
-                value: selectedDate,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: days.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedDate = newValue!;
-                  });
-                },
-              ),
-              const Spacer(),
-              const Text('Select Month'),
-              const SizedBox(width: 20),
-              DropdownButton(
-                value: selectedMonth,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: months.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedMonth = newValue!;
-                  });
-                },
-              ),
-            ],
+      body: BlocProvider<HourlyWatcherBloc>(
+        create: (context) => getIt<HourlyWatcherBloc>()
+          ..add(
+            HourlyWatcherEvent.getHourlyDataForDay(
+                selectedDate, selectedMonth, selectedYear),
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          const Text('Select Year'),
-          const SizedBox(width: 20),
-          DropdownButton(
-            value: selectedYear,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            items: years.map((String items) {
-              return DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedYear = newValue!;
-              });
-            },
-          ),
-
-          // rowData != null ? Text(rowData.toString()) : const Text('no data'),
-          rowData.isEmpty
-              ? const Text('No Data Available')
-              : SfCartesianChart(
-                  primaryXAxis: CategoryAxis(),
-                  // Chart title
-                  title: ChartTitle(text: 'Count Data'),
-                  // Enable legend
-                  legend: Legend(
-                    isVisible: true,
-                    position: LegendPosition.bottom,
-                  ),
-                  enableSideBySideSeriesPlacement: true,
-                  // Enable tooltip
-                  tooltipBehavior: TooltipBehavior(enable: false),
-                  series: <ChartSeries<Result, String>>[
-                    ColumnSeries<Result, String>(
-                      dataSource: rowData,
-                      xValueMapper: (Result result, _) =>
-                          result.hour.toString(),
-                      yValueMapper: (Result result, _) => result.inCount,
-                      name: 'In Count',
-                      yAxisName: 'HOUR',
-                      xAxisName: 'COUNT',
-
-                      // Enable data label
-                      dataLabelSettings: DataLabelSettings(isVisible: true),
-                    ),
-                    ColumnSeries<Result, String>(
-                      dataSource: rowData,
-                      xValueMapper: (Result result, _) =>
-                          result.hour.toString(),
-                      yValueMapper: (Result result, _) => result.outCount,
-                      name: 'Out Count',
-                      yAxisName: 'HOUR',
-                      xAxisName: 'COUNT',
-
-                      // Enable data label
-                      dataLabelSettings: DataLabelSettings(isVisible: true),
-                    ),
-                  ],
-                ),
-          // Expanded(
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     //Initialize the spark charts widget
-          //     child: SfSparkLineChart.custom(
-          //       //Enable the trackball
-          //       trackball: SparkChartTrackball(
-          //           activationMode: SparkChartActivationMode.tap),
-          //       //Enable marker
-          //       marker: SparkChartMarker(
-          //           displayMode: SparkChartMarkerDisplayMode.all),
-          //       //Enable data label
-          //       labelDisplayMode: SparkChartLabelDisplayMode.all,
-          //       xValueMapper: (int index) => data[index].year,
-          //       yValueMapper: (int index) => data[index].sales,
-          //       dataCount: 5,
-          //     ),
-          //   ),
-          // )
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'PixCam Header',
-                style: TextStyle(color: Colors.white),
-              ),
+            Row(
+              children: [
+                const Text('Select Day'),
+                const SizedBox(width: 20),
+                DropdownButton(
+                  value: selectedDate,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: days.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedDate = newValue!;
+                    });
+                  },
+                ),
+                const Spacer(),
+                const Text('Select Month'),
+                const SizedBox(width: 20),
+                DropdownButton(
+                  value: selectedMonth,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: months.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedMonth = newValue!;
+                    });
+                  },
+                ),
+              ],
             ),
-            // ListTile(
-            //   title: const Text('Fetch Count Data'),
-            //   onTap: () async {
-            //     var rowDataJson = await getTableData();
-            //     print('data before ${rowDataJson}');
-            //     rowDataJson[0].forEach((data) {
-            //       print('inside map $data');
-            //       rowData.add(Result.fromJson(data));
-            //     });
-
-            //     print('data ${rowData}');
-
-            //     setState(() {});
-
-            //     Navigator.pop(context);
-            //   },
-            // ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                Navigator.pop(context);
+            const SizedBox(
+              width: 10,
+            ),
+            const Text('Select Year'),
+            const SizedBox(width: 20),
+            DropdownButton(
+              value: selectedYear,
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: years.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedYear = newValue!;
+                });
               },
             ),
+
+            BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
+              builder: (context, state) {
+                return state.maybeMap(
+                  loadInProgress: (value) => const CircularProgressIndicator(),
+                  loadSuccess: (value) {
+                    print('inside sload success');
+
+                    print('Inside UI: ${value.hourlyData}');
+
+                    List<Hourly> dataList = value.hourlyData.asList();
+
+                    return SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
+                      // Chart title
+                      title: ChartTitle(text: 'Count Data'),
+                      // Enable legend
+                      legend: Legend(
+                        isVisible: true,
+                        position: LegendPosition.bottom,
+                      ),
+                      enableSideBySideSeriesPlacement: true,
+                      // Enable tooltip
+                      tooltipBehavior: TooltipBehavior(enable: false),
+                      series: <ChartSeries<Hourly, String>>[
+                        ColumnSeries<Hourly, String>(
+                          dataSource: dataList,
+                          xValueMapper: (Hourly hourly, _) =>
+                              hourly.hour.toString(),
+                          yValueMapper: (Hourly hourly, _) => hourly.inCount,
+                          name: 'In Count',
+                          yAxisName: 'HOUR',
+                          xAxisName: 'COUNT',
+
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                        ),
+                        ColumnSeries<Hourly, String>(
+                          dataSource: dataList,
+                          xValueMapper: (Hourly hourly, _) =>
+                              hourly.hour.toString(),
+                          yValueMapper: (Hourly hourly, _) => hourly.outCount,
+                          name: 'Out Count',
+                          yAxisName: 'HOUR',
+                          xAxisName: 'COUNT',
+
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                        ),
+                      ],
+                    );
+
+                    // return const Text('inside load success');
+                  },
+                  loadFailed: (value) {
+                    return const Text('load failed');
+                  },
+                  orElse: () => const Text('Or Else'),
+                );
+              },
+            )
+
+            // rowData != null ? Text(rowData.toString()) : const Text('no data'),
+            // rowData.isEmpty
+            //     ? const Text('No Data Available')
+            //     :
+            // SfCartesianChart(
+            //         primaryXAxis: CategoryAxis(),
+            //         // Chart title
+            //         title: ChartTitle(text: 'Count Data'),
+            //         // Enable legend
+            //         legend: Legend(
+            //           isVisible: true,
+            //           position: LegendPosition.bottom,
+            //         ),
+            //         enableSideBySideSeriesPlacement: true,
+            //         // Enable tooltip
+            //         tooltipBehavior: TooltipBehavior(enable: false),
+            //         series: <ChartSeries<Result, String>>[
+            //           ColumnSeries<Result, String>(
+            //             dataSource: rowData,
+            //             xValueMapper: (Result result, _) =>
+            //                 result.hour.toString(),
+            //             yValueMapper: (Result result, _) => result.inCount,
+            //             name: 'In Count',
+            //             yAxisName: 'HOUR',
+            //             xAxisName: 'COUNT',
+
+            //             // Enable data label
+            //             dataLabelSettings: DataLabelSettings(isVisible: true),
+            //           ),
+            //           ColumnSeries<Result, String>(
+            //             dataSource: rowData,
+            //             xValueMapper: (Result result, _) =>
+            //                 result.hour.toString(),
+            //             yValueMapper: (Result result, _) => result.outCount,
+            //             name: 'Out Count',
+            //             yAxisName: 'HOUR',
+            //             xAxisName: 'COUNT',
+
+            //             // Enable data label
+            //             dataLabelSettings: DataLabelSettings(isVisible: true),
+            //           ),
+            //         ],
+            //       ),
+            // Expanded(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     //Initialize the spark charts widget
+            //     child: SfSparkLineChart.custom(
+            //       //Enable the trackball
+            //       trackball: SparkChartTrackball(
+            //           activationMode: SparkChartActivationMode.tap),
+            //       //Enable marker
+            //       marker: SparkChartMarker(
+            //           displayMode: SparkChartMarkerDisplayMode.all),
+            //       //Enable data label
+            //       labelDisplayMode: SparkChartLabelDisplayMode.all,
+            //       xValueMapper: (int index) => data[index].year,
+            //       yValueMapper: (int index) => data[index].sales,
+            //       dataCount: 5,
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: [
+      //       const DrawerHeader(
+      //         decoration: BoxDecoration(
+      //           color: Colors.blue,
+      //         ),
+      //         child: Text(
+      //           'PixCam Header',
+      //           style: TextStyle(color: Colors.white),
+      //         ),
+      //       ),
+      //       // ListTile(
+      //       //   title: const Text('Fetch Count Data'),
+      //       //   onTap: () async {
+      //       //     var rowDataJson = await getTableData();
+      //       //     print('data before ${rowDataJson}');
+      //       //     rowDataJson[0].forEach((data) {
+      //       //       print('inside map $data');
+      //       //       rowData.add(Result.fromJson(data));
+      //       //     });
+
+      //       //     print('data ${rowData}');
+
+      //       //     setState(() {});
+
+      //       //     Navigator.pop(context);
+      //       //   },
+      //       // ),
+      //       ListTile(
+      //         title: const Text('Item 2'),
+      //         onTap: () {
+      //           Navigator.pop(context);
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
