@@ -7,6 +7,7 @@ import 'package:kt_dart/kt.dart';
 import 'package:pix_cam/domain/core/server_failure.dart';
 import 'package:pix_cam/domain/hourly/hourly.dart';
 import 'package:pix_cam/domain/hourly/i_hourly_repository.dart';
+import 'package:pix_cam/infrastructure/hourly/hourly_dtos.dart';
 
 @LazySingleton(as: IHourlyRepository)
 class HourlyRepository implements IHourlyRepository {
@@ -15,6 +16,8 @@ class HourlyRepository implements IHourlyRepository {
   @override
   Future<Either<ServerFailure, KtList<Hourly>>> fetchHourlyDataForDay(
       String selectedDate, String selectedMonth, String selectedYear) async {
+    print(
+        'insid erepository: functionn called : selectedDate: $selectedDate, selectedMonth: $selectedMonth, selectedYear: $selectedYear');
     try {
       HttpsCallable callable = _functions.httpsCallable('fetchDataQuery');
       final results = await callable.call({
@@ -23,18 +26,19 @@ class HourlyRepository implements IHourlyRepository {
         'selectedYear': selectedYear,
       });
 
-      Map<String, String> dataJson = jsonDecode(results.data);
+      List dataList = results.data[0];
 
-      print('dprei: ${dataJson}');
-      // dataJson.map((key, value) {
-      //   print('value:: $value');
+      KtList<Hourly> hourlyData = dataList.map((e) {
+        print('dataList - e ${jsonEncode(e)}');
 
-      // });
+        return HourlyDto.fromJson(jsonDecode(jsonEncode(e))).toDomain();
+      }).toImmutableList();
 
-      KtList<Hourly> testList = [Hourly.empty()].kt;
+      return right(hourlyData);
+    } on FirebaseFunctionsException catch (error) {
+      print('message: ${error.message}');
+      print('error details: ${error.details}');
 
-      return right(testList);
-    } catch (e) {
       return left(const ServerFailure.unexpected());
     }
   }

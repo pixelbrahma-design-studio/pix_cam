@@ -20,10 +20,10 @@ HourlyDto _$HourlyDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HourlyDto {
-  String get hour => throw _privateConstructorUsedError;
-  String get outCount => throw _privateConstructorUsedError;
-  String get inCount => throw _privateConstructorUsedError;
-  String get total => throw _privateConstructorUsedError;
+  int get hour => throw _privateConstructorUsedError;
+  int get outCount => throw _privateConstructorUsedError;
+  int get inCount => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $HourlyDtoCopyWith<$Res> {
   factory $HourlyDtoCopyWith(HourlyDto value, $Res Function(HourlyDto) then) =
       _$HourlyDtoCopyWithImpl<$Res, HourlyDto>;
   @useResult
-  $Res call({String hour, String outCount, String inCount, String total});
+  $Res call({int hour, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -61,19 +61,19 @@ class _$HourlyDtoCopyWithImpl<$Res, $Val extends HourlyDto>
       hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       outCount: null == outCount
           ? _value.outCount
           : outCount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       inCount: null == inCount
           ? _value.inCount
           : inCount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ) as $Val);
   }
 }
@@ -85,7 +85,7 @@ abstract class _$$_HourlyDtoCopyWith<$Res> implements $HourlyDtoCopyWith<$Res> {
       __$$_HourlyDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String hour, String outCount, String inCount, String total});
+  $Res call({int hour, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -108,19 +108,19 @@ class __$$_HourlyDtoCopyWithImpl<$Res>
       hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       outCount: null == outCount
           ? _value.outCount
           : outCount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       inCount: null == inCount
           ? _value.inCount
           : inCount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -139,13 +139,13 @@ class _$_HourlyDto extends _HourlyDto {
       _$$_HourlyDtoFromJson(json);
 
   @override
-  final String hour;
+  final int hour;
   @override
-  final String outCount;
+  final int outCount;
   @override
-  final String inCount;
+  final int inCount;
   @override
-  final String total;
+  final int total;
 
   @override
   String toString() {
@@ -184,23 +184,23 @@ class _$_HourlyDto extends _HourlyDto {
 
 abstract class _HourlyDto extends HourlyDto {
   const factory _HourlyDto(
-      {required final String hour,
-      required final String outCount,
-      required final String inCount,
-      required final String total}) = _$_HourlyDto;
+      {required final int hour,
+      required final int outCount,
+      required final int inCount,
+      required final int total}) = _$_HourlyDto;
   const _HourlyDto._() : super._();
 
   factory _HourlyDto.fromJson(Map<String, dynamic> json) =
       _$_HourlyDto.fromJson;
 
   @override
-  String get hour;
+  int get hour;
   @override
-  String get outCount;
+  int get outCount;
   @override
-  String get inCount;
+  int get inCount;
   @override
-  String get total;
+  int get total;
   @override
   @JsonKey(ignore: true)
   _$$_HourlyDtoCopyWith<_$_HourlyDto> get copyWith =>

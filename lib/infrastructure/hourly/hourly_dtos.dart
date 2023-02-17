@@ -10,10 +10,10 @@ abstract class HourlyDto implements _$HourlyDto {
   const HourlyDto._();
 
   const factory HourlyDto({
-    required String hour,
-    required String outCount,
-    required String inCount,
-    required String total,
+    required int hour,
+    required int outCount,
+    required int inCount,
+    required int total,
   }) = _HourlyDto;
 
   factory HourlyDto.fromDomain(Hourly hourly) {

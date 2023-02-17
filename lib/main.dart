@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pix_cam/demo_home.dart';
 import 'package:pix_cam/firebase/dev/firebase_options.dart' as dev;
 import 'package:pix_cam/firebase/prod/firebase_options.dart' as prod;
+import 'package:pix_cam/injection.dart';
 import 'package:pix_cam/my_home_page.dart';
 
 Future<String?> _getFlavorSettings() async {
@@ -22,6 +24,7 @@ Future<void> main() async {
 
   // for only web environment
   const String webFlavor = String.fromEnvironment('FLAVOR');
+  configureInjection(Environment.dev);
 
   if (!kIsWeb) {
     flavor = await _getFlavorSettings();

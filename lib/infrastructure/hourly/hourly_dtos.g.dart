@@ -7,10 +7,10 @@ part of 'hourly_dtos.dart';
 // **************************************************************************
 
 _$_HourlyDto _$$_HourlyDtoFromJson(Map<String, dynamic> json) => _$_HourlyDto(
-      hour: json['hour'] as String,
-      outCount: json['outCount'] as String,
-      inCount: json['inCount'] as String,
-      total: json['total'] as String,
+      hour: json['hour'] as int,
+      outCount: json['outCount'] as int,
+      inCount: json['inCount'] as int,
+      total: json['total'] as int,
     );
 
 Map<String, dynamic> _$$_HourlyDtoToJson(_$_HourlyDto instance) =>

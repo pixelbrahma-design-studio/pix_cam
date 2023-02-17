@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:pix_cam/domain/core/server_failure.dart';
 import 'package:pix_cam/domain/hourly/hourly.dart';
@@ -10,6 +11,7 @@ part 'hourly_watcher_event.dart';
 part 'hourly_watcher_state.dart';
 part 'hourly_watcher_bloc.freezed.dart';
 
+@injectable
 class HourlyWatcherBloc extends Bloc<HourlyWatcherEvent, HourlyWatcherState> {
   final IHourlyRepository _hourlyRepository;
 
@@ -28,6 +30,7 @@ class HourlyWatcherBloc extends Bloc<HourlyWatcherEvent, HourlyWatcherState> {
   ) async* {
     yield* event.map(
       getHourlyDataForDay: (e) async* {
+        print('printing inside bloc: call received');
         yield const HourlyWatcherState.loadInProgress();
         _hourlyRepository
             .fetchHourlyDataForDay(
