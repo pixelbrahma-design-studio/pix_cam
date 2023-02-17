@@ -15,9 +15,9 @@ class DemoHome extends StatefulWidget {
 class _DemoHomeState extends State<DemoHome> {
   List<Result> rowData = [];
 
-  String selectedDate = '1';
-  String selectedMonth = '1';
-  String selectedYear = '2020';
+  String selectedDate = '20';
+  String selectedMonth = '12';
+  String selectedYear = '2022';
 
   List<String> days = [
     '1',

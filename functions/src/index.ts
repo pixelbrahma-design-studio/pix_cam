@@ -24,8 +24,8 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   EXTRACT(HOUR FROM TIMESTAMP(countEvent.timeStamp) 
   AT TIME ZONE "Asia/Kolkata") AS hour,
   COUNT(*) AS total,
-  COUNT(CASE WHEN countEvent.eventType ="Out" THEN 1 END ) OutCount,
-  COUNT(CASE WHEN countEvent.eventType = "In" THEN 1 END ) InCount,
+  COUNT(CASE WHEN countEvent.eventType ="Out" THEN 1 END ) outCount,
+  COUNT(CASE WHEN countEvent.eventType = "In" THEN 1 END ) inCount,
   FROM
   pixcam.testcam.testTable
   WHERE (EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
@@ -39,8 +39,8 @@ export const fetchDataQuery = functions.https.onCall(async (data, context) => {
   
   SELECT
   hour,
-  IF(OutCount IS NULL,0,OutCount) AS OutCount,
-  IF(InCount IS NULL,0,InCount) AS InCount,
+  IF(outCount IS NULL,0,outCount) AS outCount,
+  IF(inCount IS NULL,0,inCount) AS inCount,
   IF(total IS NULL,0,total) AS total
   FROM
   events
