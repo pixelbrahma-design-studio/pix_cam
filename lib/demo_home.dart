@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pix_cam/application/hourly/hourly_watcher/hourly_watcher_bloc.dart';
 import 'package:pix_cam/domain/hourly/hourly.dart';
+import 'package:pix_cam/domain/hourly/i_hourly_repository.dart';
+import 'package:pix_cam/infrastructure/hourly/hourly_repository.dart';
 import 'package:pix_cam/injection.dart';
 import 'package:pix_cam/models/event.dart';
 import 'package:pix_cam/models/result.dart';
@@ -18,12 +20,13 @@ class DemoHome extends StatefulWidget {
 }
 
 class _DemoHomeState extends State<DemoHome> {
+  HourlyWatcherBloc blocs = HourlyWatcherBloc(HourlyRepository());
   List<Result> rowData = [];
   DateTimeRange? dateTimeRange;
   TextEditingController dateInput = TextEditingController();
-  String selectedDate = '20';
-  String selectedMonth = '12';
-  String selectedYear = '2022';
+  String selectedDate = DateTime.now().day.toString();
+  String selectedMonth = DateTime.now().month.toString();
+  String selectedYear = DateTime.now().year.toString();
 
   List<String> days = [
     '1',
@@ -83,43 +86,45 @@ class _DemoHomeState extends State<DemoHome> {
     '2025',
   ];
 
+  // Future<void> pickDateRange() async {
+  //   DateTime? pickedDate = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(1900),
+  //     lastDate: DateTime(2100),
+  //     builder: (context, child) {
+  //       return Theme(
+  //         data: Theme.of(context).copyWith(
+  //           colorScheme: const ColorScheme.light(
+  //             primary: Colors.blue, // header background color
+  //             onSurface: Colors.black,
+  //           ),
+  //         ),
+  //         child: child!,
+  //       );
+  //     },
+  //   );
 
-  Future<void> pickDateRange() async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate:  DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme:  const ColorScheme.light(
-              primary: Colors.blue, // header background color
-              onSurface: Colors.black,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
+  //   if (pickedDate == null) {
+  //     dateInput.text = '';
+  //     dateTimeRange = null;
+  //   } else {
+  //     setState(() {
+  //       selectedDate = pickedDate.day.toString();
+  //       selectedMonth = pickedDate.month.toString();
+  //       selectedYear = pickedDate.year.toString();
+  //       String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
 
-    if (pickedDate == null) {
-      dateInput.text = '';
-      dateTimeRange = null;
-    } else {
-      setState(() {
-        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
-        //dateTimeRange = newDateRange;
-        print(dateTimeRange);
-        dateInput.text = formattedDate;
-      });
-    }
-  }
+  //       print(dateTimeRange);
+  //       dateInput.text = formattedDate;
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
-    dateInput.text = "";
+    dateInput.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
     super.initState();
     print('inside: demo_home');
   }
@@ -197,26 +202,69 @@ class _DemoHomeState extends State<DemoHome> {
             //     });
             //   },
             // ),
-            const SizedBox(height: 20,),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: TextField(
-                controller: dateInput,
-                readOnly: true,
-                style: const TextStyle(fontSize: 16),
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(
-                    Icons.date_range,
-                    size: 26,
-                    color: Colors.blue,
-                  ),
-                ),
-                onTap: pickDateRange,
-              ),
+            const SizedBox(
+              height: 20,
             ),
 
-            const SizedBox(height: 20,),
+            BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: TextField(
+                      controller: dateInput,
+                      readOnly: true,
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.date_range,
+                          size: 26,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      onTap: () async {
+                        await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: const ColorScheme.light(
+                                  primary:
+                                      Colors.blue, // header background color
+                                  onSurface: Colors.black,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        ).then((pickedDate) {
+                          if (pickedDate == null) {
+                            dateTimeRange = null;
+                          } else {
+                            String formattedDate =
+                                DateFormat('dd-MM-yyyy').format(pickedDate);
+                            print(pickedDate.day);
+
+                            print(dateTimeRange);
+                            dateInput.text = formattedDate;
+                            selectedDate = pickedDate.day.toString();
+                            selectedMonth = pickedDate.month.toString();
+                            selectedYear = pickedDate.year.toString();
+                            BlocProvider.of<HourlyWatcherBloc>(context).add(
+                                HourlyWatcherEvent.getHourlyDataForDay(
+                                    selectedDate, selectedMonth, selectedYear));
+                          }
+                        });
+                      }),
+                );
+              },
+            ),
+
+            const SizedBox(
+              height: 20,
+            ),
             BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
               builder: (context, state) {
                 return state.maybeMap(
@@ -251,7 +299,8 @@ class _DemoHomeState extends State<DemoHome> {
                           xAxisName: 'COUNT',
 
                           // Enable data label
-                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                          dataLabelSettings:
+                              const DataLabelSettings(isVisible: true),
                         ),
                         ColumnSeries<Hourly, String>(
                           dataSource: dataList,
@@ -263,7 +312,8 @@ class _DemoHomeState extends State<DemoHome> {
                           xAxisName: 'COUNT',
 
                           // Enable data label
-                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                          dataLabelSettings:
+                              const DataLabelSettings(isVisible: true),
                         ),
                       ],
                     );
