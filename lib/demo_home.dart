@@ -82,6 +82,8 @@ class _DemoHomeState extends State<DemoHome> {
     '2024',
     '2025',
   ];
+
+
   Future<void> pickDateRange() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -196,6 +198,7 @@ class _DemoHomeState extends State<DemoHome> {
             //   },
             // ),
             const SizedBox(height: 20,),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
@@ -212,6 +215,7 @@ class _DemoHomeState extends State<DemoHome> {
                 onTap: pickDateRange,
               ),
             ),
+
             const SizedBox(height: 20,),
             BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
               builder: (context, state) {
