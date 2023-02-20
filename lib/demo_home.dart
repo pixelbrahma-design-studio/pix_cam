@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:pix_cam/application/hourly/hourly_watcher/hourly_watcher_bloc.dart';
 import 'package:pix_cam/domain/hourly/hourly.dart';
 import 'package:pix_cam/injection.dart';
@@ -18,7 +19,8 @@ class DemoHome extends StatefulWidget {
 
 class _DemoHomeState extends State<DemoHome> {
   List<Result> rowData = [];
-
+  DateTimeRange? dateTimeRange;
+  TextEditingController dateInput = TextEditingController();
   String selectedDate = '20';
   String selectedMonth = '12';
   String selectedYear = '2022';
@@ -81,9 +83,43 @@ class _DemoHomeState extends State<DemoHome> {
     '2025',
   ];
 
+
+  Future<void> pickDateRange() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate:  DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme:  const ColorScheme.light(
+              primary: Colors.blue, // header background color
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate == null) {
+      dateInput.text = '';
+      dateTimeRange = null;
+    } else {
+      setState(() {
+        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+        //dateTimeRange = newDateRange;
+        print(dateTimeRange);
+        dateInput.text = formattedDate;
+      });
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
+    dateInput.text = "";
     super.initState();
     print('inside: demo_home');
   }
@@ -102,66 +138,85 @@ class _DemoHomeState extends State<DemoHome> {
           ),
         child: Column(
           children: [
-            Row(
-              children: [
-                const Text('Select Day'),
-                const SizedBox(width: 20),
-                DropdownButton(
-                  value: selectedDate,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: days.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedDate = newValue!;
-                    });
-                  },
+            // Row(
+            //   children: [
+            //     const Text('Select Day'),
+            //     const SizedBox(width: 20),
+            //     DropdownButton(
+            //       value: selectedDate,
+            //       icon: const Icon(Icons.keyboard_arrow_down),
+            //       items: days.map((String items) {
+            //         return DropdownMenuItem(
+            //           value: items,
+            //           child: Text(items),
+            //         );
+            //       }).toList(),
+            //       onChanged: (String? newValue) {
+            //         setState(() {
+            //           selectedDate = newValue!;
+            //         });
+            //       },
+            //     ),
+            //     const Spacer(),
+            //     const Text('Select Month'),
+            //     const SizedBox(width: 20),
+            //     DropdownButton(
+            //       value: selectedMonth,
+            //       icon: const Icon(Icons.keyboard_arrow_down),
+            //       items: months.map((String items) {
+            //         return DropdownMenuItem(
+            //           value: items,
+            //           child: Text(items),
+            //         );
+            //       }).toList(),
+            //       onChanged: (String? newValue) {
+            //         setState(() {
+            //           selectedMonth = newValue!;
+            //         });
+            //       },
+            //     ),
+            //   ],
+            // ),
+            // const SizedBox(
+            //   width: 10,
+            // ),
+            // const Text('Select Year'),
+            // const SizedBox(width: 20),
+            // DropdownButton(
+            //   value: selectedYear,
+            //   icon: const Icon(Icons.keyboard_arrow_down),
+            //   items: years.map((String items) {
+            //     return DropdownMenuItem(
+            //       value: items,
+            //       child: Text(items),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? newValue) {
+            //     setState(() {
+            //       selectedYear = newValue!;
+            //     });
+            //   },
+            // ),
+            const SizedBox(height: 20,),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: TextField(
+                controller: dateInput,
+                readOnly: true,
+                style: const TextStyle(fontSize: 16),
+                decoration: const InputDecoration(
+                  suffixIcon: Icon(
+                    Icons.date_range,
+                    size: 26,
+                    color: Colors.blue,
+                  ),
                 ),
-                const Spacer(),
-                const Text('Select Month'),
-                const SizedBox(width: 20),
-                DropdownButton(
-                  value: selectedMonth,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: months.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedMonth = newValue!;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text('Select Year'),
-            const SizedBox(width: 20),
-            DropdownButton(
-              value: selectedYear,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: years.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedYear = newValue!;
-                });
-              },
+                onTap: pickDateRange,
+              ),
             ),
 
+            const SizedBox(height: 20,),
             BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
               builder: (context, state) {
                 return state.maybeMap(
