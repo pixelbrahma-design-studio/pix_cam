@@ -24,7 +24,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           // SfDateRangePicker(),
           ListTile(
-            title: const Text('Select a Date'),
+            title: const Text('Daily Data'),
             onTap: () async {
               // hide drawer
               Navigator.pop(context);
@@ -33,40 +33,24 @@ class DrawerWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SfDatePickerScreen(
-                    dateRangePickerSelectionMode:
-                        DateRangePickerSelectionMode.single,
-                    onSubmit: (DateRangePickerSelectionChangedArgs args) {
-                      print('selected Date : $args');
-                      if (args.value != null) {
-                        // MaterialPageRoute(builder: (context) => DemoHome(title: 'ttest', selectedDateArgs: args,));
-                        Navigator.pop(context);
-                      } else {
-                        showSnackBar(context, 'Please Select A Date');
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
+                  builder: (context) => DemoHome(title: 'Daily Data', pageNumber: 0,),
                 ),
               );
-              // var rowDataJson = await getTableData();
-              // print('data before ${rowDataJson}');
-              // rowDataJson[0].forEach((data) {
-              //   print('inside map $data');
-              //   rowData.add(Result.fromJson(data));
-              // });
-              //
-              // print('data ${rowData}');
-              //
-              // setState(() {});
-              //
-              // Navigator.pop(context);
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
-            onTap: () {
+            title: const Text('Weekly Data'),
+            onTap: () async {
+              // hide drawer
               Navigator.pop(context);
+
+              // show date picker
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DemoHome(title: 'Daily Data', pageNumber: 1,),
+                ),
+              );
             },
           ),
         ],
