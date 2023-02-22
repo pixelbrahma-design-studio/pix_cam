@@ -16,7 +16,7 @@ abstract class Hourly implements _$Hourly {
     required int total,
   }) = _Hourly;
 
-  factory Hourly.empty() => Hourly(
+  factory Hourly.empty() => const Hourly(
         hour: 0,
         outCount: 0,
         inCount: 0,

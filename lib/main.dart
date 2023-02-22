@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DemoHome(title: 'Pix Cam Demo', pageNumber: 0,),
+      home: DemoHome(title: 'Pix Cam Demo', pageNumber: 3,),
       // home: const MyHomePage(title: 'Pix Cam'),
     );
   }

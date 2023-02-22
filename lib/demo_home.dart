@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pix_cam/presentation/screens/daily_data_screen.dart';
+import 'package:pix_cam/presentation/screens/monthly_data_screen.dart';
 import 'package:pix_cam/presentation/screens/weekly_data_screen.dart';
 import 'package:pix_cam/utils/utils.dart';
 import 'package:pix_cam/widgets/drawer.dart';
@@ -47,6 +48,7 @@ class _DemoHomeState extends State<DemoHome> {
               children: [
                 const DailyDataScreen(),
                 WeeklyDataScreen(),
+                MonthlyDataScreen(),
               ],
             ),
           ),
