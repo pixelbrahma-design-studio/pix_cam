@@ -33,7 +33,6 @@ class DailyDataScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-
           BlocBuilder<HourlyWatcherBloc, HourlyWatcherState>(
             builder: (context, state) {
               return Padding(
@@ -59,8 +58,7 @@ class DailyDataScreen extends StatelessWidget {
                           return Theme(
                             data: Theme.of(context).copyWith(
                               colorScheme: const ColorScheme.light(
-                                primary:
-                                Colors.blue, // header background color
+                                primary: Colors.blue, // header background color
                                 onSurface: Colors.black,
                               ),
                             ),
@@ -72,7 +70,7 @@ class DailyDataScreen extends StatelessWidget {
                           dateTimeRange = null;
                         } else {
                           String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                              DateFormat('dd-MM-yyyy').format(pickedDate);
                           print(pickedDate.day);
 
                           print(dateTimeRange);
@@ -89,7 +87,6 @@ class DailyDataScreen extends StatelessWidget {
               );
             },
           ),
-
           const SizedBox(
             height: 20,
           ),
@@ -107,7 +104,7 @@ class DailyDataScreen extends StatelessWidget {
                   return SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     // Chart title
-                    title: ChartTitle(text: 'Count Data'),
+                    title: ChartTitle(text: 'Daily Count Data'),
                     // Enable legend
                     legend: Legend(
                       isVisible: true,
@@ -128,7 +125,7 @@ class DailyDataScreen extends StatelessWidget {
 
                         // Enable data label
                         dataLabelSettings:
-                        const DataLabelSettings(isVisible: true),
+                            const DataLabelSettings(isVisible: true),
                       ),
                       ColumnSeries<Hourly, String>(
                         dataSource: dataList,
@@ -141,7 +138,7 @@ class DailyDataScreen extends StatelessWidget {
 
                         // Enable data label
                         dataLabelSettings:
-                        const DataLabelSettings(isVisible: true),
+                            const DataLabelSettings(isVisible: true),
                       ),
                     ],
                   );

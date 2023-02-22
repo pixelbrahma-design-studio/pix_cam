@@ -40,7 +40,7 @@ dependencies:
   cloud_firestore: ^4.3.1
   cloud_functions: ^4.0.7
   syncfusion_flutter_charts: ^20.4.42
-  syncfusion_flutter_datepicker: ^20.4.48
+  #syncfusion_flutter_datepicker: ^20.4.48
   dartz: ^0.10.1
   freezed_annotation: ^2.2.0
   flutter_bloc: ^8.1.2

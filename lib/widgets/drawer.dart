@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pix_cam/demo_home.dart';
 import 'package:pix_cam/utils/sf_date_picker_screen.dart';
 import 'package:pix_cam/utils/snackbar.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -33,7 +32,10 @@ class DrawerWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DemoHome(title: 'Daily Data', pageNumber: 0,),
+                  builder: (context) => DemoHome(
+                    title: 'Daily Data',
+                    pageNumber: 0,
+                  ),
                 ),
               );
             },
@@ -48,7 +50,10 @@ class DrawerWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DemoHome(title: 'Daily Data', pageNumber: 1,),
+                  builder: (context) => DemoHome(
+                    title: 'Daily Data',
+                    pageNumber: 1,
+                  ),
                 ),
               );
             },
