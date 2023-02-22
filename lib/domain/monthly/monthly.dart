@@ -1,22 +1,17 @@
-import 'dart:typed_data';
-
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'hourly.freezed.dart';
+part 'monthly.freezed.dart';
 
 @freezed
-abstract class Hourly implements _$Hourly {
-  const Hourly._();
-
-  factory Hourly({
+abstract class Monthly implements _$Monthly {
+  Monthly._();
+  factory Monthly({
     required int hour,
     required int outCount,
     required int inCount,
     required int total,
-  }) = _Hourly;
+  }) = _Monthly;
 
-  factory Hourly.empty() => Hourly(
+  factory Monthly.empty() => Monthly(
         hour: 0,
         outCount: 0,
         inCount: 0,

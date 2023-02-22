@@ -37,7 +37,7 @@ class WeeklyWatcherBloc extends Bloc<WeeklyWatcherEvent, WeeklyWatcherState> {
         });
       },
       weeklyDataReceived: (e) async* {
-        yield e.failureOrHourlyData.fold(
+        yield e.failureOrWeeklyData.fold(
             (failure) => WeeklyWatcherState.failures(failure),
             (weeklyData) => WeeklyWatcherState.success(weeklyData));
       },

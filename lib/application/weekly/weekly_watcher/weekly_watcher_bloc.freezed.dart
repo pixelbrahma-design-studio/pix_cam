@@ -22,7 +22,7 @@ mixin _$WeeklyWatcherEvent {
             String selectedDate, String selectedMonth, String selectedYear)
         getWeeklyData,
     required TResult Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +32,7 @@ mixin _$WeeklyWatcherEvent {
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
     TResult? Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ mixin _$WeeklyWatcherEvent {
     TResult Function(
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
-    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
   }) =>
@@ -174,7 +174,7 @@ class _$_GetWeeklyData implements _GetWeeklyData {
             String selectedDate, String selectedMonth, String selectedYear)
         getWeeklyData,
     required TResult Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
   }) {
     return getWeeklyData(selectedDate, selectedMonth, selectedYear);
@@ -187,7 +187,7 @@ class _$_GetWeeklyData implements _GetWeeklyData {
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
     TResult? Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
   }) {
     return getWeeklyData?.call(selectedDate, selectedMonth, selectedYear);
@@ -199,7 +199,7 @@ class _$_GetWeeklyData implements _GetWeeklyData {
     TResult Function(
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
-    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
   }) {
@@ -259,7 +259,7 @@ abstract class _$$_WeeklyDataReceivedCopyWith<$Res> {
           $Res Function(_$_WeeklyDataReceived) then) =
       __$$_WeeklyDataReceivedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Either<ServerFailure, KtList<Weekly>> failureOrHourlyData});
+  $Res call({Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData});
 }
 
 /// @nodoc
@@ -273,12 +273,12 @@ class __$$_WeeklyDataReceivedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? failureOrHourlyData = null,
+    Object? failureOrWeeklyData = null,
   }) {
     return _then(_$_WeeklyDataReceived(
-      null == failureOrHourlyData
-          ? _value.failureOrHourlyData
-          : failureOrHourlyData // ignore: cast_nullable_to_non_nullable
+      null == failureOrWeeklyData
+          ? _value.failureOrWeeklyData
+          : failureOrWeeklyData // ignore: cast_nullable_to_non_nullable
               as Either<ServerFailure, KtList<Weekly>>,
     ));
   }
@@ -287,14 +287,14 @@ class __$$_WeeklyDataReceivedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_WeeklyDataReceived implements _WeeklyDataReceived {
-  _$_WeeklyDataReceived(this.failureOrHourlyData);
+  _$_WeeklyDataReceived(this.failureOrWeeklyData);
 
   @override
-  final Either<ServerFailure, KtList<Weekly>> failureOrHourlyData;
+  final Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData;
 
   @override
   String toString() {
-    return 'WeeklyWatcherEvent.weeklyDataReceived(failureOrHourlyData: $failureOrHourlyData)';
+    return 'WeeklyWatcherEvent.weeklyDataReceived(failureOrWeeklyData: $failureOrWeeklyData)';
   }
 
   @override
@@ -302,12 +302,12 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WeeklyDataReceived &&
-            (identical(other.failureOrHourlyData, failureOrHourlyData) ||
-                other.failureOrHourlyData == failureOrHourlyData));
+            (identical(other.failureOrWeeklyData, failureOrWeeklyData) ||
+                other.failureOrWeeklyData == failureOrWeeklyData));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, failureOrHourlyData);
+  int get hashCode => Object.hash(runtimeType, failureOrWeeklyData);
 
   @JsonKey(ignore: true)
   @override
@@ -323,10 +323,10 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
             String selectedDate, String selectedMonth, String selectedYear)
         getWeeklyData,
     required TResult Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
   }) {
-    return weeklyDataReceived(failureOrHourlyData);
+    return weeklyDataReceived(failureOrWeeklyData);
   }
 
   @override
@@ -336,10 +336,10 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
     TResult? Function(
-            Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+            Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
   }) {
-    return weeklyDataReceived?.call(failureOrHourlyData);
+    return weeklyDataReceived?.call(failureOrWeeklyData);
   }
 
   @override
@@ -348,12 +348,12 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
     TResult Function(
             String selectedDate, String selectedMonth, String selectedYear)?
         getWeeklyData,
-    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrHourlyData)?
+    TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
   }) {
     if (weeklyDataReceived != null) {
-      return weeklyDataReceived(failureOrHourlyData);
+      return weeklyDataReceived(failureOrWeeklyData);
     }
     return orElse();
   }
@@ -392,10 +392,10 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
 
 abstract class _WeeklyDataReceived implements WeeklyWatcherEvent {
   factory _WeeklyDataReceived(
-          final Either<ServerFailure, KtList<Weekly>> failureOrHourlyData) =
+          final Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData) =
       _$_WeeklyDataReceived;
 
-  Either<ServerFailure, KtList<Weekly>> get failureOrHourlyData;
+  Either<ServerFailure, KtList<Weekly>> get failureOrWeeklyData;
   @JsonKey(ignore: true)
   _$$_WeeklyDataReceivedCopyWith<_$_WeeklyDataReceived> get copyWith =>
       throw _privateConstructorUsedError;
