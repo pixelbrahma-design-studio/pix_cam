@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'hourly.dart';
+part of 'monthly.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,28 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$Hourly {
+mixin _$Monthly {
   int get hour => throw _privateConstructorUsedError;
   int get outCount => throw _privateConstructorUsedError;
   int get inCount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $HourlyCopyWith<Hourly> get copyWith => throw _privateConstructorUsedError;
+  $MonthlyCopyWith<Monthly> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $HourlyCopyWith<$Res> {
-  factory $HourlyCopyWith(Hourly value, $Res Function(Hourly) then) =
-      _$HourlyCopyWithImpl<$Res, Hourly>;
+abstract class $MonthlyCopyWith<$Res> {
+  factory $MonthlyCopyWith(Monthly value, $Res Function(Monthly) then) =
+      _$MonthlyCopyWithImpl<$Res, Monthly>;
   @useResult
   $Res call({int hour, int outCount, int inCount, int total});
 }
 
 /// @nodoc
-class _$HourlyCopyWithImpl<$Res, $Val extends Hourly>
-    implements $HourlyCopyWith<$Res> {
-  _$HourlyCopyWithImpl(this._value, this._then);
+class _$MonthlyCopyWithImpl<$Res, $Val extends Monthly>
+    implements $MonthlyCopyWith<$Res> {
+  _$MonthlyCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -73,19 +73,20 @@ class _$HourlyCopyWithImpl<$Res, $Val extends Hourly>
 }
 
 /// @nodoc
-abstract class _$$_HourlyCopyWith<$Res> implements $HourlyCopyWith<$Res> {
-  factory _$$_HourlyCopyWith(_$_Hourly value, $Res Function(_$_Hourly) then) =
-      __$$_HourlyCopyWithImpl<$Res>;
+abstract class _$$_MonthlyCopyWith<$Res> implements $MonthlyCopyWith<$Res> {
+  factory _$$_MonthlyCopyWith(
+          _$_Monthly value, $Res Function(_$_Monthly) then) =
+      __$$_MonthlyCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int hour, int outCount, int inCount, int total});
 }
 
 /// @nodoc
-class __$$_HourlyCopyWithImpl<$Res>
-    extends _$HourlyCopyWithImpl<$Res, _$_Hourly>
-    implements _$$_HourlyCopyWith<$Res> {
-  __$$_HourlyCopyWithImpl(_$_Hourly _value, $Res Function(_$_Hourly) _then)
+class __$$_MonthlyCopyWithImpl<$Res>
+    extends _$MonthlyCopyWithImpl<$Res, _$_Monthly>
+    implements _$$_MonthlyCopyWith<$Res> {
+  __$$_MonthlyCopyWithImpl(_$_Monthly _value, $Res Function(_$_Monthly) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -96,7 +97,7 @@ class __$$_HourlyCopyWithImpl<$Res>
     Object? inCount = null,
     Object? total = null,
   }) {
-    return _then(_$_Hourly(
+    return _then(_$_Monthly(
       hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
@@ -119,8 +120,8 @@ class __$$_HourlyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Hourly extends _Hourly {
-  _$_Hourly(
+class _$_Monthly extends _Monthly {
+  _$_Monthly(
       {required this.hour,
       required this.outCount,
       required this.inCount,
@@ -138,14 +139,14 @@ class _$_Hourly extends _Hourly {
 
   @override
   String toString() {
-    return 'Hourly(hour: $hour, outCount: $outCount, inCount: $inCount, total: $total)';
+    return 'Monthly(hour: $hour, outCount: $outCount, inCount: $inCount, total: $total)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Hourly &&
+            other is _$_Monthly &&
             (identical(other.hour, hour) || other.hour == hour) &&
             (identical(other.outCount, outCount) ||
                 other.outCount == outCount) &&
@@ -159,17 +160,17 @@ class _$_Hourly extends _Hourly {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HourlyCopyWith<_$_Hourly> get copyWith =>
-      __$$_HourlyCopyWithImpl<_$_Hourly>(this, _$identity);
+  _$$_MonthlyCopyWith<_$_Monthly> get copyWith =>
+      __$$_MonthlyCopyWithImpl<_$_Monthly>(this, _$identity);
 }
 
-abstract class _Hourly extends Hourly {
-  factory _Hourly(
+abstract class _Monthly extends Monthly {
+  factory _Monthly(
       {required final int hour,
       required final int outCount,
       required final int inCount,
-      required final int total}) = _$_Hourly;
-  _Hourly._() : super._();
+      required final int total}) = _$_Monthly;
+  _Monthly._() : super._();
 
   @override
   int get hour;
@@ -181,6 +182,6 @@ abstract class _Hourly extends Hourly {
   int get total;
   @override
   @JsonKey(ignore: true)
-  _$$_HourlyCopyWith<_$_Hourly> get copyWith =>
+  _$$_MonthlyCopyWith<_$_Monthly> get copyWith =>
       throw _privateConstructorUsedError;
 }

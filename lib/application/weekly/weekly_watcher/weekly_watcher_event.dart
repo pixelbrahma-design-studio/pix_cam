@@ -6,6 +6,6 @@ class WeeklyWatcherEvent with _$WeeklyWatcherEvent {
           String selectedDate, String selectedMonth, String selectedYear) =
       _GetWeeklyData;
   factory WeeklyWatcherEvent.weeklyDataReceived(
-    Either<ServerFailure, KtList<Weekly>> failureOrHourlyData,
+    Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData,
   ) = _WeeklyDataReceived;
 }
