@@ -20,7 +20,7 @@ WeeklyDto _$WeeklyDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WeeklyDto {
-  int get hour => throw _privateConstructorUsedError;
+  int get day => throw _privateConstructorUsedError;
   int get outCount => throw _privateConstructorUsedError;
   int get inCount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $WeeklyDtoCopyWith<$Res> {
   factory $WeeklyDtoCopyWith(WeeklyDto value, $Res Function(WeeklyDto) then) =
       _$WeeklyDtoCopyWithImpl<$Res, WeeklyDto>;
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -52,15 +52,15 @@ class _$WeeklyDtoCopyWithImpl<$Res, $Val extends WeeklyDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -85,7 +85,7 @@ abstract class _$$_WeeklyDtoCopyWith<$Res> implements $WeeklyDtoCopyWith<$Res> {
       __$$_WeeklyDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -99,15 +99,15 @@ class __$$_WeeklyDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_$_WeeklyDto(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -129,7 +129,7 @@ class __$$_WeeklyDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_WeeklyDto extends _WeeklyDto {
   _$_WeeklyDto(
-      {required this.hour,
+      {required this.day,
       required this.outCount,
       required this.inCount,
       required this.total})
@@ -139,7 +139,7 @@ class _$_WeeklyDto extends _WeeklyDto {
       _$$_WeeklyDtoFromJson(json);
 
   @override
-  final int hour;
+  final int day;
   @override
   final int outCount;
   @override
@@ -149,7 +149,7 @@ class _$_WeeklyDto extends _WeeklyDto {
 
   @override
   String toString() {
-    return 'WeeklyDto(hour: $hour, outCount: $outCount, inCount: $inCount, total: $total)';
+    return 'WeeklyDto(day: $day, outCount: $outCount, inCount: $inCount, total: $total)';
   }
 
   @override
@@ -157,7 +157,7 @@ class _$_WeeklyDto extends _WeeklyDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_WeeklyDto &&
-            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.day, day) || other.day == day) &&
             (identical(other.outCount, outCount) ||
                 other.outCount == outCount) &&
             (identical(other.inCount, inCount) || other.inCount == inCount) &&
@@ -166,7 +166,7 @@ class _$_WeeklyDto extends _WeeklyDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, hour, outCount, inCount, total);
+  int get hashCode => Object.hash(runtimeType, day, outCount, inCount, total);
 
   @JsonKey(ignore: true)
   @override
@@ -184,7 +184,7 @@ class _$_WeeklyDto extends _WeeklyDto {
 
 abstract class _WeeklyDto extends WeeklyDto {
   factory _WeeklyDto(
-      {required final int hour,
+      {required final int day,
       required final int outCount,
       required final int inCount,
       required final int total}) = _$_WeeklyDto;
@@ -194,7 +194,7 @@ abstract class _WeeklyDto extends WeeklyDto {
       _$_WeeklyDto.fromJson;
 
   @override
-  int get hour;
+  int get day;
   @override
   int get outCount;
   @override

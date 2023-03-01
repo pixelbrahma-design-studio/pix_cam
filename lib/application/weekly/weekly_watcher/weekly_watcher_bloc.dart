@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -6,7 +7,6 @@ import 'package:kt_dart/collection.dart';
 import 'package:pix_cam/domain/core/server_failure.dart';
 import 'package:pix_cam/domain/weekly/i_weekly_repository.dart';
 
-import '../../../domain/hourly/hourly.dart';
 import '../../../domain/weekly/weekly.dart';
 
 part 'weekly_watcher_event.dart';
@@ -31,7 +31,7 @@ class WeeklyWatcherBloc extends Bloc<WeeklyWatcherEvent, WeeklyWatcherState> {
       getWeeklyData: (e) async* {
         yield const WeeklyWatcherState.loading();
         _iWeeklyRepository
-            .getWeeklyData(e.selectedDate, e.selectedMonth, e.selectedYear)
+            .getWeeklyData(e.timeStamp)
             .then((value) {
           add(WeeklyWatcherEvent.weeklyDataReceived(value));
         });

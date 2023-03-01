@@ -41,7 +41,7 @@ class HourlyWatcherBloc extends Bloc<HourlyWatcherEvent, HourlyWatcherState> {
 
       hourlyDataForDayReceived: (e) async* {
         yield e.failureOrHourlyData.fold(
-          (f) => HourlyWatcherState.loadFailed(f),
+          (l) => HourlyWatcherState.loadFailed(l),
           (hourlyData) => HourlyWatcherState.loadSuccess(hourlyData),
         );
       },

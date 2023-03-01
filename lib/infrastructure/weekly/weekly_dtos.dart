@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pix_cam/domain/weekly/weekly.dart';
 import 'package:pix_cam/infrastructure/hourly/hourly_dtos.dart';
@@ -8,7 +9,7 @@ part 'weekly_dtos.g.dart';
 abstract class WeeklyDto implements _$WeeklyDto {
   const WeeklyDto._();
   factory WeeklyDto({
-    required int hour,
+    required int day,
     required int outCount,
     required int inCount,
     required int total,
@@ -16,7 +17,7 @@ abstract class WeeklyDto implements _$WeeklyDto {
 
   factory WeeklyDto.fromDomain(Weekly weekly) {
     return WeeklyDto(
-      hour: weekly.hour,
+      day: weekly.day,
       outCount: weekly.outCount,
       inCount: weekly.inCount,
       total: weekly.total,
@@ -25,7 +26,7 @@ abstract class WeeklyDto implements _$WeeklyDto {
 
   Weekly toDomain() {
     return Weekly(
-      hour: hour,
+      day: day,
       outCount: outCount,
       inCount: inCount,
       total: total,

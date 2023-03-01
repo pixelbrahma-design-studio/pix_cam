@@ -116,8 +116,7 @@ class DailyDataScreen extends StatelessWidget {
                     series: <ChartSeries<Hourly, String>>[
                       ColumnSeries<Hourly, String>(
                         dataSource: dataList,
-                        xValueMapper: (Hourly hourly, _) =>
-                            hourly.hour.toString(),
+                        xValueMapper: (Hourly hourly, _) => hourly.hour.toString(),
                         yValueMapper: (Hourly hourly, _) => hourly.inCount,
                         name: 'In Count',
                         yAxisName: 'HOUR',
@@ -129,16 +128,14 @@ class DailyDataScreen extends StatelessWidget {
                       ),
                       ColumnSeries<Hourly, String>(
                         dataSource: dataList,
-                        xValueMapper: (Hourly hourly, _) =>
-                            hourly.hour.toString(),
+                        xValueMapper: (Hourly hourly, _) => hourly.hour.toString(),
                         yValueMapper: (Hourly hourly, _) => hourly.outCount,
                         name: 'Out Count',
                         yAxisName: 'HOUR',
                         xAxisName: 'COUNT',
 
                         // Enable data label
-                        dataLabelSettings:
-                            const DataLabelSettings(isVisible: true),
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
                       ),
                     ],
                   );

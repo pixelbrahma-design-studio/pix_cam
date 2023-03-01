@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -15,22 +16,23 @@ class WeeklyRepository implements IWeeklyRepository {
   final FirebaseFunctions _functions = FirebaseFunctions.instance;
   @override
   Future<Either<ServerFailure, KtList<Weekly>>> getWeeklyData(
-      String selectedDate, String selectedMonth, String selectedYear) async {
+     String timeStamp
+      ) async {
     print(
-        'insid erepository: functionn called : selectedDate: $selectedDate, selectedMonth: $selectedMonth, selectedYear: $selectedYear');
+        'inside weekly repository: function called : selectedtimestamp: $timeStamp,'
+
+        );
     try {
       // write Weekly get data function here
-      HttpsCallable callable = _functions.httpsCallable('fetchDataQuery');
+      HttpsCallable callable = _functions.httpsCallable('fetchWeeklyDataQuery'); //fetchWeeklyDataQuery
       final results = await callable.call({
-        'selectedDay': selectedDate,
-        'selectedMonth': selectedMonth,
-        'selectedYear': selectedYear,
+        'date' : timeStamp,
       });
 
       List dataList = results.data[0];
 
       KtList<Weekly> hourlyData = dataList.map((e) {
-        print('dataList - e ${jsonEncode(e)}');
+        print('Day dataList - e ${jsonEncode(e)}');
 
         return WeeklyDto.fromJson(jsonDecode(jsonEncode(e))).toDomain();
       }).toImmutableList();
@@ -44,3 +46,4 @@ class WeeklyRepository implements IWeeklyRepository {
     }
   }
 }
+

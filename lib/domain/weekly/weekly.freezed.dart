@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Weekly {
-  int get hour => throw _privateConstructorUsedError;
+//required Timestamp timeStamp,
+  int get day => throw _privateConstructorUsedError;
   int get outCount => throw _privateConstructorUsedError;
   int get inCount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -30,7 +31,7 @@ abstract class $WeeklyCopyWith<$Res> {
   factory $WeeklyCopyWith(Weekly value, $Res Function(Weekly) then) =
       _$WeeklyCopyWithImpl<$Res, Weekly>;
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -46,15 +47,15 @@ class _$WeeklyCopyWithImpl<$Res, $Val extends Weekly>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -78,7 +79,7 @@ abstract class _$$_WeeklyCopyWith<$Res> implements $WeeklyCopyWith<$Res> {
       __$$_WeeklyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -91,15 +92,15 @@ class __$$_WeeklyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_$_Weekly(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -121,14 +122,15 @@ class __$$_WeeklyCopyWithImpl<$Res>
 
 class _$_Weekly extends _Weekly {
   const _$_Weekly(
-      {required this.hour,
+      {required this.day,
       required this.outCount,
       required this.inCount,
       required this.total})
       : super._();
 
+//required Timestamp timeStamp,
   @override
-  final int hour;
+  final int day;
   @override
   final int outCount;
   @override
@@ -138,7 +140,7 @@ class _$_Weekly extends _Weekly {
 
   @override
   String toString() {
-    return 'Weekly(hour: $hour, outCount: $outCount, inCount: $inCount, total: $total)';
+    return 'Weekly(day: $day, outCount: $outCount, inCount: $inCount, total: $total)';
   }
 
   @override
@@ -146,7 +148,7 @@ class _$_Weekly extends _Weekly {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Weekly &&
-            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.day, day) || other.day == day) &&
             (identical(other.outCount, outCount) ||
                 other.outCount == outCount) &&
             (identical(other.inCount, inCount) || other.inCount == inCount) &&
@@ -154,7 +156,7 @@ class _$_Weekly extends _Weekly {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hour, outCount, inCount, total);
+  int get hashCode => Object.hash(runtimeType, day, outCount, inCount, total);
 
   @JsonKey(ignore: true)
   @override
@@ -165,14 +167,14 @@ class _$_Weekly extends _Weekly {
 
 abstract class _Weekly extends Weekly {
   const factory _Weekly(
-      {required final int hour,
+      {required final int day,
       required final int outCount,
       required final int inCount,
       required final int total}) = _$_Weekly;
   const _Weekly._() : super._();
 
-  @override
-  int get hour;
+  @override //required Timestamp timeStamp,
+  int get day;
   @override
   int get outCount;
   @override

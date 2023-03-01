@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WeeklyWatcherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)
-        getWeeklyData,
+    required TResult Function(String timeStamp) getWeeklyData,
     required TResult Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
@@ -28,9 +26,7 @@ mixin _$WeeklyWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult? Function(String timeStamp)? getWeeklyData,
     TResult? Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
@@ -38,9 +34,7 @@ mixin _$WeeklyWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult Function(String timeStamp)? getWeeklyData,
     TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
@@ -91,7 +85,7 @@ abstract class _$$_GetWeeklyDataCopyWith<$Res> {
           _$_GetWeeklyData value, $Res Function(_$_GetWeeklyData) then) =
       __$$_GetWeeklyDataCopyWithImpl<$Res>;
   @useResult
-  $Res call({String selectedDate, String selectedMonth, String selectedYear});
+  $Res call({String timeStamp});
 }
 
 /// @nodoc
@@ -105,22 +99,12 @@ class __$$_GetWeeklyDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedDate = null,
-    Object? selectedMonth = null,
-    Object? selectedYear = null,
+    Object? timeStamp = null,
   }) {
     return _then(_$_GetWeeklyData(
-      null == selectedDate
-          ? _value.selectedDate
-          : selectedDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == selectedMonth
-          ? _value.selectedMonth
-          : selectedMonth // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == selectedYear
-          ? _value.selectedYear
-          : selectedYear // ignore: cast_nullable_to_non_nullable
+      null == timeStamp
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -129,19 +113,15 @@ class __$$_GetWeeklyDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GetWeeklyData implements _GetWeeklyData {
-  const _$_GetWeeklyData(
-      this.selectedDate, this.selectedMonth, this.selectedYear);
+  const _$_GetWeeklyData(this.timeStamp);
 
+//String selectedDate, String selectedMonth, String selectedYear,
   @override
-  final String selectedDate;
-  @override
-  final String selectedMonth;
-  @override
-  final String selectedYear;
+  final String timeStamp;
 
   @override
   String toString() {
-    return 'WeeklyWatcherEvent.getWeeklyData(selectedDate: $selectedDate, selectedMonth: $selectedMonth, selectedYear: $selectedYear)';
+    return 'WeeklyWatcherEvent.getWeeklyData(timeStamp: $timeStamp)';
   }
 
   @override
@@ -149,17 +129,12 @@ class _$_GetWeeklyData implements _GetWeeklyData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GetWeeklyData &&
-            (identical(other.selectedDate, selectedDate) ||
-                other.selectedDate == selectedDate) &&
-            (identical(other.selectedMonth, selectedMonth) ||
-                other.selectedMonth == selectedMonth) &&
-            (identical(other.selectedYear, selectedYear) ||
-                other.selectedYear == selectedYear));
+            (identical(other.timeStamp, timeStamp) ||
+                other.timeStamp == timeStamp));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, selectedDate, selectedMonth, selectedYear);
+  int get hashCode => Object.hash(runtimeType, timeStamp);
 
   @JsonKey(ignore: true)
   @override
@@ -170,41 +145,35 @@ class _$_GetWeeklyData implements _GetWeeklyData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)
-        getWeeklyData,
+    required TResult Function(String timeStamp) getWeeklyData,
     required TResult Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
   }) {
-    return getWeeklyData(selectedDate, selectedMonth, selectedYear);
+    return getWeeklyData(timeStamp);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult? Function(String timeStamp)? getWeeklyData,
     TResult? Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
   }) {
-    return getWeeklyData?.call(selectedDate, selectedMonth, selectedYear);
+    return getWeeklyData?.call(timeStamp);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult Function(String timeStamp)? getWeeklyData,
     TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
   }) {
     if (getWeeklyData != null) {
-      return getWeeklyData(selectedDate, selectedMonth, selectedYear);
+      return getWeeklyData(timeStamp);
     }
     return orElse();
   }
@@ -242,12 +211,10 @@ class _$_GetWeeklyData implements _GetWeeklyData {
 }
 
 abstract class _GetWeeklyData implements WeeklyWatcherEvent {
-  const factory _GetWeeklyData(final String selectedDate,
-      final String selectedMonth, final String selectedYear) = _$_GetWeeklyData;
+  const factory _GetWeeklyData(final String timeStamp) = _$_GetWeeklyData;
 
-  String get selectedDate;
-  String get selectedMonth;
-  String get selectedYear;
+//String selectedDate, String selectedMonth, String selectedYear,
+  String get timeStamp;
   @JsonKey(ignore: true)
   _$$_GetWeeklyDataCopyWith<_$_GetWeeklyData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -319,9 +286,7 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)
-        getWeeklyData,
+    required TResult Function(String timeStamp) getWeeklyData,
     required TResult Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)
         weeklyDataReceived,
@@ -332,9 +297,7 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult? Function(String timeStamp)? getWeeklyData,
     TResult? Function(
             Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
@@ -345,9 +308,7 @@ class _$_WeeklyDataReceived implements _WeeklyDataReceived {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String selectedDate, String selectedMonth, String selectedYear)?
-        getWeeklyData,
+    TResult Function(String timeStamp)? getWeeklyData,
     TResult Function(Either<ServerFailure, KtList<Weekly>> failureOrWeeklyData)?
         weeklyDataReceived,
     required TResult orElse(),
