@@ -5,14 +5,14 @@ part 'weekly.freezed.dart';
 abstract class Weekly implements _$Weekly {
   const Weekly._();
   const factory Weekly({
-    required int hour,
+    required int day,
     required int outCount,
     required int inCount,
     required int total,
   }) = _Weekly;
 
   factory Weekly.empty() => const Weekly(
-        hour: 0,
+        day: 0,
         outCount: 0,
         inCount: 0,
         total: 0,

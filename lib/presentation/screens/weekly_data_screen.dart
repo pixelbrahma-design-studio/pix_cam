@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -43,37 +44,48 @@ class WeeklyDataScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await showDatePicker(
+                      await showDateRangePicker(
                         context: context,
-                        initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
                         lastDate: DateTime(2100),
-                        builder: (context, child) {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Colors.blue, // header background color
-                                onSurface: Colors.black,
-                              ),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      ).then((pickedDate) {
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('dd-MM-yyyy').format(pickedDate);
-                          print(pickedDate.day);
-
-                          dateInput.text = formattedDate;
-                          selectedDate = pickedDate.day.toString();
-                          selectedMonth = pickedDate.month.toString();
-                          selectedYear = pickedDate.year.toString();
-                          BlocProvider.of<WeeklyWatcherBloc>(context).add(
-                              WeeklyWatcherEvent.getWeeklyData(
-                                  selectedDate, selectedMonth, selectedYear));
+                      ).then((value) {
+                        if (value != null) {
+                          print(value);
+                          print(Timestamp.fromDate(value.start)
+                              .millisecondsSinceEpoch);
                         }
                       });
+                      // await showDatePicker(
+                      //   context: context,
+                      //   initialDate: DateTime.now(),
+                      //   firstDate: DateTime(1900),
+                      //   lastDate: DateTime(2100),
+                      //   builder: (context, child) {
+                      //     return Theme(
+                      //       data: Theme.of(context).copyWith(
+                      //         colorScheme: const ColorScheme.light(
+                      //           primary: Colors.blue, // header background color
+                      //           onSurface: Colors.black,
+                      //         ),
+                      //       ),
+                      //       child: child!,
+                      //     );
+                      //   },
+                      // ).then((pickedDate) {
+                      //   if (pickedDate != null) {
+                      //     String formattedDate =
+                      //         DateFormat('dd-MM-yyyy').format(pickedDate);
+                      //     print(pickedDate.day);
+
+                      //     dateInput.text = formattedDate;
+                      //     selectedDate = pickedDate.day.toString();
+                      //     selectedMonth = pickedDate.month.toString();
+                      //     selectedYear = pickedDate.year.toString();
+                      //     BlocProvider.of<WeeklyWatcherBloc>(context).add(
+                      //         WeeklyWatcherEvent.getWeeklyData(
+                      //             selectedDate, selectedMonth, selectedYear));
+                      //   }
+                      // });
                     }),
               );
             },
@@ -108,7 +120,7 @@ class WeeklyDataScreen extends StatelessWidget {
                       ColumnSeries<Weekly, String>(
                         dataSource: dataList,
                         xValueMapper: (Weekly weekly, _) =>
-                            weekly.hour.toString(),
+                            weekly.day.toString(),
                         yValueMapper: (Weekly weekly, _) => weekly.inCount,
                         name: 'In Count',
                         yAxisName: 'HOUR',
@@ -121,7 +133,7 @@ class WeeklyDataScreen extends StatelessWidget {
                       ColumnSeries<Weekly, String>(
                         dataSource: dataList,
                         xValueMapper: (Weekly weekly, _) =>
-                            weekly.hour.toString(),
+                            weekly.day.toString(),
                         yValueMapper: (Weekly weekly, _) => weekly.outCount,
                         name: 'Out Count',
                         yAxisName: 'HOUR',

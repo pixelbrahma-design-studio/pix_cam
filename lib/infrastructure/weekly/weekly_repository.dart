@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -18,14 +19,12 @@ class WeeklyRepository implements IWeeklyRepository {
       String selectedDate, String selectedMonth, String selectedYear) async {
     print(
         'insid erepository: functionn called : selectedDate: $selectedDate, selectedMonth: $selectedMonth, selectedYear: $selectedYear');
+
     try {
       // write Weekly get data function here
-      HttpsCallable callable = _functions.httpsCallable('fetchDataQuery');
-      final results = await callable.call({
-        'selectedDay': selectedDate,
-        'selectedMonth': selectedMonth,
-        'selectedYear': selectedYear,
-      });
+      HttpsCallable callable = _functions.httpsCallable('fetchWeeklyDataQuery');
+      final results =
+          await callable.call({'date': '2022-12-27T17:09:01+00:00'});
 
       List dataList = results.data[0];
 
