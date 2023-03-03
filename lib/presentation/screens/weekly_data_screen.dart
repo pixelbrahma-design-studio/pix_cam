@@ -4,13 +4,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pix_cam/application/weekly/weekly_watcher/weekly_watcher_bloc.dart';
 import 'package:pix_cam/domain/weekly/weekly.dart';
+import 'package:pix_cam/presentation/screens/weekly_date_picker.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../injection.dart';
 
-class WeeklyDataScreen extends StatelessWidget {
+class WeeklyDataScreen extends StatefulWidget {
   WeeklyDataScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WeeklyDataScreen> createState() => _WeeklyDataScreenState();
+}
+
+class _WeeklyDataScreenState extends State<WeeklyDataScreen> {
   TextEditingController dateInput = TextEditingController();
+
+
   // initial endDate
   String endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00").format(DateTime(
       DateTime.now().year,
@@ -19,10 +29,13 @@ class WeeklyDataScreen extends StatelessWidget {
       23,
       59,
       59));
+
   // initial DateRange
+
   DateTimeRange initialDateRange = DateTimeRange(
       start: DateTime.now().subtract(const Duration(days: 6)),
       end: DateTime.now());
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,29 +67,33 @@ class WeeklyDataScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await showDateRangePicker(
-                        initialDateRange: initialDateRange,
-                        context: context,
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2100),
-                      ).then((value) {
-                        if (value != null) {
-                          final selectedDate = value.end;
-                          endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00")
-                              .format(DateTime(
-                                  selectedDate.year,
-                                  selectedDate.month,
-                                  selectedDate.day + 1,
-                                  23,
-                                  59,
-                                  59));
-                          initialDateRange = value;
-                          dateInput.text =
-                              "${DateFormat("dd-MM-yyyy").format(value.end.subtract(Duration(days: 6)))}  to  ${DateFormat("dd-MM-yyyy").format(value.end)}";
-                          BlocProvider.of<WeeklyWatcherBloc>(context)
-                              .add(WeeklyWatcherEvent.getWeeklyData(endDate));
-                        }
-                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  WeekSelectionInPicker()),
+                      );
+                      // await showDateRangePicker(
+                      //   initialDateRange: initialDateRange,
+                      //   context: context,
+                      //   firstDate: DateTime(1900),
+                      //   lastDate: DateTime(2100),
+                      // ).then((value) {
+                      //   if (value != null) {
+                      //     final selectedDate = value.end;
+                      //     endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00")
+                      //         .format(DateTime(
+                      //             selectedDate.year,
+                      //             selectedDate.month,
+                      //             selectedDate.day + 1,
+                      //             23,
+                      //             59,
+                      //             59));
+                      //     initialDateRange = value;
+                      //     dateInput.text =
+                      //         "${DateFormat("dd-MM-yyyy").format(value.end.add(Duration(days: 6)))}  to  ${DateFormat("dd-MM-yyyy").format(value.end)}";
+                      //     BlocProvider.of<WeeklyWatcherBloc>(context)
+                      //         .add(WeeklyWatcherEvent.getWeeklyData(endDate));
+                      //   }
+                      // });
                     }),
               );
             },
