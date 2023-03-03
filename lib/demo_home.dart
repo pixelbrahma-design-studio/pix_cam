@@ -46,9 +46,9 @@ class _DemoHomeState extends State<DemoHome> {
               controller: _controller,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                const DailyDataScreen(),
+                //const DailyDataScreen(),
                 WeeklyDataScreen(),
-                const MonthlyDataScreen()
+                // const MonthlyDataScreen()
               ],
             ),
           ),

@@ -77,10 +77,9 @@ export const fetchWeeklyDataQuery = functions
       COUNTIF(countEvent.eventType = "In") AS inCount
     FROM
       pixcam.testcam.testTable
-    WHERE 
-      TIMESTAMP(countEvent.timeStamp) 
-      BETWEEN TIMESTAMP_SUB(TIMESTAMP(${data["date"]}), 
-      INTERVAL 7 DAY) AND TIMESTAMP(${data["date"]})
+    WHERE TIMESTAMP(countEvent.timeStamp) 
+      BETWEEN TIMESTAMP_SUB(TIMESTAMP('${data["date"]}'), 
+      INTERVAL 7 DAY) AND TIMESTAMP('${data["date"]}')
     GROUP BY
       day`;
 

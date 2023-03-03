@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:pix_cam/domain/core/server_failure.dart';
 import 'package:pix_cam/domain/weekly/i_weekly_repository.dart';
@@ -15,7 +17,7 @@ part 'weekly_watcher_bloc.freezed.dart';
 
 @injectable
 class WeeklyWatcherBloc extends Bloc<WeeklyWatcherEvent, WeeklyWatcherState> {
-  IWeeklyRepository _iWeeklyRepository;
+  final IWeeklyRepository _iWeeklyRepository;
   WeeklyWatcherBloc(this._iWeeklyRepository)
       : super(const WeeklyWatcherState.initial()) {
     on<WeeklyWatcherEvent>((event, emit) async {
@@ -30,9 +32,7 @@ class WeeklyWatcherBloc extends Bloc<WeeklyWatcherEvent, WeeklyWatcherState> {
     yield* event.map(
       getWeeklyData: (e) async* {
         yield const WeeklyWatcherState.loading();
-        _iWeeklyRepository
-            .getWeeklyData(e.selectedDate, e.selectedMonth, e.selectedYear)
-            .then((value) {
+        _iWeeklyRepository.getWeeklyData(e.endDate).then((value) {
           add(WeeklyWatcherEvent.weeklyDataReceived(value));
         });
       },

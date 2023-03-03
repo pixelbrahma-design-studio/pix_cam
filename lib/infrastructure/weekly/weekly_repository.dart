@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -15,17 +16,14 @@ class WeeklyRepository implements IWeeklyRepository {
   final FirebaseFunctions _functions = FirebaseFunctions.instance;
   @override
   Future<Either<ServerFailure, KtList<Weekly>>> getWeeklyData(
-      String selectedDate, String selectedMonth, String selectedYear) async {
-    print(
-        'insid erepository: functionn called : selectedDate: $selectedDate, selectedMonth: $selectedMonth, selectedYear: $selectedYear');
+    String endDate,
+  ) async {
+    print('insid erepository: functionn called : selectedDate: $endDate');
+
     try {
       // write Weekly get data function here
-      HttpsCallable callable = _functions.httpsCallable('fetchDataQuery');
-      final results = await callable.call({
-        'selectedDay': selectedDate,
-        'selectedMonth': selectedMonth,
-        'selectedYear': selectedYear,
-      });
+      HttpsCallable callable = _functions.httpsCallable('fetchWeeklyDataQuery');
+      final results = await callable.call({'date': endDate});
 
       List dataList = results.data[0];
 

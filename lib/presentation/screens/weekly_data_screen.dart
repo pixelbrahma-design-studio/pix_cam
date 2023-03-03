@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -9,18 +10,28 @@ import '../../injection.dart';
 
 class WeeklyDataScreen extends StatelessWidget {
   WeeklyDataScreen({Key? key}) : super(key: key);
-  String selectedDate = DateTime.now().day.toString();
-  String selectedMonth = DateTime.now().month.toString();
-  String selectedYear = DateTime.now().year.toString();
   TextEditingController dateInput = TextEditingController();
+  // initial endDate
+  String endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00").format(DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day + 1,
+      23,
+      59,
+      59));
+  // initial DateRange
+  DateTimeRange initialDateRange = DateTimeRange(
+      start: DateTime.now().subtract(const Duration(days: 6)),
+      end: DateTime.now());
 
   @override
   Widget build(BuildContext context) {
+    dateInput.text =
+        "${DateFormat("dd-MM-yyyy").format(initialDateRange.start)}  to  ${DateFormat("dd-MM-yyyy").format(initialDateRange.end)}";
     return BlocProvider<WeeklyWatcherBloc>(
       create: (context) => getIt<WeeklyWatcherBloc>()
         ..add(
-          WeeklyWatcherEvent.getWeeklyData(
-              selectedDate, selectedMonth, selectedYear),
+          WeeklyWatcherEvent.getWeeklyData(endDate),
         ),
       child: Column(
         children: [
@@ -43,35 +54,27 @@ class WeeklyDataScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await showDatePicker(
+                      await showDateRangePicker(
+                        initialDateRange: initialDateRange,
                         context: context,
-                        initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
                         lastDate: DateTime(2100),
-                        builder: (context, child) {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: const ColorScheme.light(
-                                primary: Colors.blue, // header background color
-                                onSurface: Colors.black,
-                              ),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      ).then((pickedDate) {
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('dd-MM-yyyy').format(pickedDate);
-                          print(pickedDate.day);
-
-                          dateInput.text = formattedDate;
-                          selectedDate = pickedDate.day.toString();
-                          selectedMonth = pickedDate.month.toString();
-                          selectedYear = pickedDate.year.toString();
-                          BlocProvider.of<WeeklyWatcherBloc>(context).add(
-                              WeeklyWatcherEvent.getWeeklyData(
-                                  selectedDate, selectedMonth, selectedYear));
+                      ).then((value) {
+                        if (value != null) {
+                          final selectedDate = value.end;
+                          endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00")
+                              .format(DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day + 1,
+                                  23,
+                                  59,
+                                  59));
+                          initialDateRange = value;
+                          dateInput.text =
+                              "${DateFormat("dd-MM-yyyy").format(value.end.subtract(Duration(days: 6)))}  to  ${DateFormat("dd-MM-yyyy").format(value.end)}";
+                          BlocProvider.of<WeeklyWatcherBloc>(context)
+                              .add(WeeklyWatcherEvent.getWeeklyData(endDate));
                         }
                       });
                     }),
@@ -108,10 +111,10 @@ class WeeklyDataScreen extends StatelessWidget {
                       ColumnSeries<Weekly, String>(
                         dataSource: dataList,
                         xValueMapper: (Weekly weekly, _) =>
-                            weekly.hour.toString(),
+                            weekly.day.toString(),
                         yValueMapper: (Weekly weekly, _) => weekly.inCount,
                         name: 'In Count',
-                        yAxisName: 'HOUR',
+                        yAxisName: 'DAY',
                         xAxisName: 'COUNT',
 
                         // Enable data label
@@ -121,10 +124,10 @@ class WeeklyDataScreen extends StatelessWidget {
                       ColumnSeries<Weekly, String>(
                         dataSource: dataList,
                         xValueMapper: (Weekly weekly, _) =>
-                            weekly.hour.toString(),
+                            weekly.day.toString(),
                         yValueMapper: (Weekly weekly, _) => weekly.outCount,
                         name: 'Out Count',
-                        yAxisName: 'HOUR',
+                        yAxisName: 'DAY',
                         xAxisName: 'COUNT',
 
                         // Enable data label
