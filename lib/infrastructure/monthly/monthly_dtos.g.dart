@@ -8,7 +8,7 @@ part of 'monthly_dtos.dart';
 
 _$_MonthlyDto _$$_MonthlyDtoFromJson(Map<String, dynamic> json) =>
     _$_MonthlyDto(
-      month: json['month'] as int,
+      day: json['day'] as int,
       outCount: json['outCount'] as int,
       inCount: json['inCount'] as int,
       total: json['total'] as int,
@@ -16,7 +16,7 @@ _$_MonthlyDto _$$_MonthlyDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_MonthlyDtoToJson(_$_MonthlyDto instance) =>
     <String, dynamic>{
-      'month': instance.month,
+      'day': instance.day,
       'outCount': instance.outCount,
       'inCount': instance.inCount,
       'total': instance.total,

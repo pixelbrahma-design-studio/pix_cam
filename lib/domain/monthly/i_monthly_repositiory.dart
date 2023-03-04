@@ -5,5 +5,5 @@ import 'package:pix_cam/domain/monthly/monthly.dart';
 
 abstract class IMonthlyRepository {
   Future<Either<ServerFailure, KtList<Monthly>>> fetchMonthlyData(
-      String selectedMonth, String selectedYear);
+      int selectedMonth, int selectedYear);
 }

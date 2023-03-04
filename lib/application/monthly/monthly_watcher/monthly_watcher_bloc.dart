@@ -16,21 +16,23 @@ part 'monthly_watcher_bloc.freezed.dart';
 @injectable
 class MonthlyWatcherBloc
     extends Bloc<MonthlyWatcherEvent, MonthlyWatcherState> {
-  IMonthlyRepository iMonthlyRepository;
-  MonthlyWatcherBloc(this.iMonthlyRepository)
+  final IMonthlyRepository _iMonthlyRepository;
+  MonthlyWatcherBloc(this._iMonthlyRepository)
       : super(const MonthlyWatcherState.initial()) {
     on<MonthlyWatcherEvent>((event, emit) async {
-      await emit.onEach(mapEventToState(event), onData: (State) {
+      await emit.onEach(mapEventToState(event),
+          onData: (MonthlyWatcherState state) {
         emit(state);
       });
     });
   }
 
-  Stream<Object?> mapEventToState(MonthlyWatcherEvent event) async* {
+  Stream<MonthlyWatcherState> mapEventToState(
+      MonthlyWatcherEvent event) async* {
     yield* event.map(
       getMonthlyData: (e) async* {
         yield const MonthlyWatcherState.loading();
-        await iMonthlyRepository
+        await _iMonthlyRepository
             .fetchMonthlyData(e.selectedMonth, e.selectedYear)
             .then((value) {
           add(MonthlyWatcherEvent.monthlyDataReceived(value));

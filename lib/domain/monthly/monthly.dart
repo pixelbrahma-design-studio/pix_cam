@@ -5,14 +5,14 @@ part 'monthly.freezed.dart';
 abstract class Monthly implements _$Monthly {
   Monthly._();
   factory Monthly({
-    required int month,
+    required int day,
     required int outCount,
     required int inCount,
     required int total,
   }) = _Monthly;
 
   factory Monthly.empty() => Monthly(
-        month: 0,
+        day: 0,
         outCount: 0,
         inCount: 0,
         total: 0,
