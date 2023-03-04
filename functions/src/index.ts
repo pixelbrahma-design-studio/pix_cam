@@ -98,3 +98,37 @@ export const fetchWeeklyDataQuery = functions
       return [rows];
     });
 
+export const fetchMonthlyDataQuery = functions
+    .https.onCall(async (data, context) => {
+      functions.logger.info("Hello logs!", {structuredData: true});
+      console.log("Data: req: ", data);
+
+      const query = `SELECT
+      EXTRACT(DAY FROM TIMESTAMP(countEvent.timeStamp) 
+      AT TIME ZONE "Asia/Kolkata") AS day,
+      COUNT(*) AS total,
+      COUNTIF(countEvent.eventType = "Out") AS outCount,
+      COUNTIF(countEvent.eventType = "In") AS inCount
+    FROM
+      pixcam.testcam.testTable
+    WHERE EXTRACT(YEAR FROM 
+      TIMESTAMP(countEvent.timeStamp)) = ${data["year"]}
+    AND EXTRACT(MONTH FROM 
+      TIMESTAMP(countEvent.timeStamp)) = ${data["month"]}
+    GROUP BY
+      day`;
+
+      const options = {
+        query: query,
+        location: "asia-south1",
+        useLegacySql: false,
+        allowLargeResult: true,
+      };
+
+      const [job] = await bigquery.createQueryJob(options);
+      console.log(`Job ${job.metadata} started.`);
+
+      const [rows] = await job.getQueryResults();
+
+      return [rows];
+    });
