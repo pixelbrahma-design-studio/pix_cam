@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Monthly {
-  int get hour => throw _privateConstructorUsedError;
+  int get month => throw _privateConstructorUsedError;
   int get outCount => throw _privateConstructorUsedError;
   int get inCount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -30,7 +30,7 @@ abstract class $MonthlyCopyWith<$Res> {
   factory $MonthlyCopyWith(Monthly value, $Res Function(Monthly) then) =
       _$MonthlyCopyWithImpl<$Res, Monthly>;
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int month, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -46,15 +46,15 @@ class _$MonthlyCopyWithImpl<$Res, $Val extends Monthly>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? month = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      month: null == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -79,7 +79,7 @@ abstract class _$$_MonthlyCopyWith<$Res> implements $MonthlyCopyWith<$Res> {
       __$$_MonthlyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int hour, int outCount, int inCount, int total});
+  $Res call({int month, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -92,15 +92,15 @@ class __$$_MonthlyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hour = null,
+    Object? month = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_$_Monthly(
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
+      month: null == month
+          ? _value.month
+          : month // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -122,14 +122,14 @@ class __$$_MonthlyCopyWithImpl<$Res>
 
 class _$_Monthly extends _Monthly {
   _$_Monthly(
-      {required this.hour,
+      {required this.month,
       required this.outCount,
       required this.inCount,
       required this.total})
       : super._();
 
   @override
-  final int hour;
+  final int month;
   @override
   final int outCount;
   @override
@@ -139,7 +139,7 @@ class _$_Monthly extends _Monthly {
 
   @override
   String toString() {
-    return 'Monthly(hour: $hour, outCount: $outCount, inCount: $inCount, total: $total)';
+    return 'Monthly(month: $month, outCount: $outCount, inCount: $inCount, total: $total)';
   }
 
   @override
@@ -147,7 +147,7 @@ class _$_Monthly extends _Monthly {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Monthly &&
-            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.month, month) || other.month == month) &&
             (identical(other.outCount, outCount) ||
                 other.outCount == outCount) &&
             (identical(other.inCount, inCount) || other.inCount == inCount) &&
@@ -155,7 +155,7 @@ class _$_Monthly extends _Monthly {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hour, outCount, inCount, total);
+  int get hashCode => Object.hash(runtimeType, month, outCount, inCount, total);
 
   @JsonKey(ignore: true)
   @override
@@ -166,14 +166,14 @@ class _$_Monthly extends _Monthly {
 
 abstract class _Monthly extends Monthly {
   factory _Monthly(
-      {required final int hour,
+      {required final int month,
       required final int outCount,
       required final int inCount,
       required final int total}) = _$_Monthly;
   _Monthly._() : super._();
 
   @override
-  int get hour;
+  int get month;
   @override
   int get outCount;
   @override

@@ -32,7 +32,7 @@ class WeeklyWatcherBloc extends Bloc<WeeklyWatcherEvent, WeeklyWatcherState> {
     yield* event.map(
       getWeeklyData: (e) async* {
         yield const WeeklyWatcherState.loading();
-        _iWeeklyRepository.getWeeklyData(e.endDate).then((value) {
+        _iWeeklyRepository.getWeeklyData(e.startDate, e.endDate).then((value) {
           add(WeeklyWatcherEvent.weeklyDataReceived(value));
         });
       },

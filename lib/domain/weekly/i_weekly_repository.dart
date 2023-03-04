@@ -4,5 +4,6 @@ import 'package:pix_cam/domain/core/server_failure.dart';
 import 'package:pix_cam/domain/weekly/weekly.dart';
 
 abstract class IWeeklyRepository {
-  Future<Either<ServerFailure, KtList<Weekly>>> getWeeklyData(String endDate);
+  Future<Either<ServerFailure, KtList<Weekly>>> getWeeklyData(
+      String startDate, String endDate);
 }

@@ -8,20 +8,20 @@ part 'monthly_dtos.g.dart';
 abstract class MonthlyDto implements _$MonthlyDto {
   MonthlyDto._();
   factory MonthlyDto({
-    required int hour,
+    required int month,
     required int outCount,
     required int inCount,
     required int total,
   }) = _MonthlyDto;
 
   factory MonthlyDto.fromDomain(Monthly monthly) => MonthlyDto(
-        hour: monthly.hour,
+        month: monthly.month,
         outCount: monthly.outCount,
         inCount: monthly.inCount,
         total: monthly.total,
       );
   Monthly toDomain() => Monthly(
-        hour: hour,
+        month: month,
         outCount: outCount,
         inCount: inCount,
         total: total,
