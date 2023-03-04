@@ -78,8 +78,8 @@ export const fetchWeeklyDataQuery = functions
     FROM
       pixcam.testcam.testTable
     WHERE TIMESTAMP(countEvent.timeStamp) 
-      BETWEEN TIMESTAMP_SUB(TIMESTAMP('${data["date"]}'), 
-      INTERVAL 7 DAY) AND TIMESTAMP('${data["date"]}')
+      BETWEEN TIMESTAMP('${data["startDate"]}') 
+      AND TIMESTAMP('${data["endDate"]}')
     GROUP BY
       day`;
 
