@@ -16,14 +16,17 @@ class DrawerWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text(
-              'PixCam Header',
-              style: TextStyle(color: Colors.white),
+            child: Center(
+              child: Text(
+                'PixCam Header',
+                style: TextStyle(color: Colors.white,fontSize: 20),
+              ),
             ),
           ),
           // SfDateRangePicker(),
           ListTile(
             title: const Text('Daily Data'),
+            trailing: Icon(Icons.arrow_forward),
             onTap: () async {
               // hide drawer
               Navigator.pop(context);
@@ -42,6 +45,7 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Weekly Data'),
+            trailing: Icon(Icons.arrow_forward),
             onTap: () async {
               // hide drawer
               Navigator.pop(context);
@@ -51,8 +55,27 @@ class DrawerWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DemoHome(
-                    title: 'Daily Data',
+                    title: 'Weekly Data',
                     pageNumber: 1,
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('Monthly Data'),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () async {
+              // hide drawer
+              Navigator.pop(context);
+
+              // show date picker
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DemoHome(
+                    title: 'Monthly Data',
+                    pageNumber: 2,
                   ),
                 ),
               );
