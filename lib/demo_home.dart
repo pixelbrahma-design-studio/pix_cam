@@ -45,10 +45,10 @@ class _DemoHomeState extends State<DemoHome> {
             child: PageView(
               controller: _controller,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
+              children: const [
                 //const DailyDataScreen(),
-                WeeklyDataScreen(),
-                // const MonthlyDataScreen()
+                //  WeeklyDataScreen(),
+                MonthlyDataScreen()
               ],
             ),
           ),

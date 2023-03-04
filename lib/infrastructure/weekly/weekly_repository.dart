@@ -16,6 +16,7 @@ class WeeklyRepository implements IWeeklyRepository {
   final FirebaseFunctions _functions = FirebaseFunctions.instance;
   @override
   Future<Either<ServerFailure, KtList<Weekly>>> getWeeklyData(
+    String startDate,
     String endDate,
   ) async {
     print('insid erepository: functionn called : selectedDate: $endDate');
@@ -23,7 +24,8 @@ class WeeklyRepository implements IWeeklyRepository {
     try {
       // write Weekly get data function here
       HttpsCallable callable = _functions.httpsCallable('fetchWeeklyDataQuery');
-      final results = await callable.call({'date': endDate});
+      final results =
+          await callable.call({'startDate': startDate, 'endDate': endDate});
 
       List dataList = results.data[0];
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,31 +22,25 @@ class WeeklyDataScreen extends StatefulWidget {
 class _WeeklyDataScreenState extends State<WeeklyDataScreen> {
   TextEditingController dateInput = TextEditingController();
 
-
   // initial endDate
-  String endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00").format(DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day + 1,
-      23,
-      59,
-      59));
-
-  // initial DateRange
-
-  DateTimeRange initialDateRange = DateTimeRange(
-      start: DateTime.now().subtract(const Duration(days: 6)),
-      end: DateTime.now());
-
+  // String endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00").format(DateTime(
+  //     DateTime.now().year,
+  //     DateTime.now().month,
+  //     DateTime.now().day + 1,
+  //     23,
+  //     59,
+  //     59));
+  var endDate = DateTime.now().toString();
+  var startDate = DateTime.now().subtract(const Duration(days: 6)).toString();
 
   @override
   Widget build(BuildContext context) {
     dateInput.text =
-        "${DateFormat("dd-MM-yyyy").format(initialDateRange.start)}  to  ${DateFormat("dd-MM-yyyy").format(initialDateRange.end)}";
+        "${DateFormat("dd-MM-yyyy").format(DateTime.now().subtract(const Duration(days: 6)))}  to  ${DateFormat("dd-MM-yyyy").format(DateTime.now())}";
     return BlocProvider<WeeklyWatcherBloc>(
       create: (context) => getIt<WeeklyWatcherBloc>()
         ..add(
-          WeeklyWatcherEvent.getWeeklyData(endDate),
+          WeeklyWatcherEvent.getWeeklyData(startDate, endDate),
         ),
       child: Column(
         children: [
@@ -69,31 +65,21 @@ class _WeeklyDataScreenState extends State<WeeklyDataScreen> {
                     onTap: () async {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>  WeekSelectionInPicker()),
-                      );
-                      // await showDateRangePicker(
-                      //   initialDateRange: initialDateRange,
-                      //   context: context,
-                      //   firstDate: DateTime(1900),
-                      //   lastDate: DateTime(2100),
-                      // ).then((value) {
-                      //   if (value != null) {
-                      //     final selectedDate = value.end;
-                      //     endDate = DateFormat("yyyy-MM-ddTHH:mm:ss+00:00")
-                      //         .format(DateTime(
-                      //             selectedDate.year,
-                      //             selectedDate.month,
-                      //             selectedDate.day + 1,
-                      //             23,
-                      //             59,
-                      //             59));
-                      //     initialDateRange = value;
-                      //     dateInput.text =
-                      //         "${DateFormat("dd-MM-yyyy").format(value.end.add(Duration(days: 6)))}  to  ${DateFormat("dd-MM-yyyy").format(value.end)}";
-                      //     BlocProvider.of<WeeklyWatcherBloc>(context)
-                      //         .add(WeeklyWatcherEvent.getWeeklyData(endDate));
-                      //   }
-                      // });
+                        MaterialPageRoute(
+                            builder: (context) => WeekSelectionInPicker()),
+                      ).then((pickedDate) {
+                        if (pickedDate != null) {
+                          startDate = pickedDate.startDate.toString();
+                          endDate = pickedDate.endDate
+                              .add(const Duration(days: 1))
+                              .toString();
+                          BlocProvider.of<WeeklyWatcherBloc>(context).add(
+                              WeeklyWatcherEvent.getWeeklyData(
+                                  startDate, endDate));
+                          dateInput.text =
+                              "${DateFormat("dd-MM-yyyy").format(pickedDate.startDate)}  to  ${DateFormat("dd-MM-yyyy").format(pickedDate.endDate)}";
+                        }
+                      });
                     }),
               );
             },
