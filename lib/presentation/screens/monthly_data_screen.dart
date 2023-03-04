@@ -8,6 +8,7 @@ import 'package:pix_cam/domain/monthly/monthly.dart';
 import 'package:pix_cam/infrastructure/hourly/hourly_repository.dart';
 import 'package:pix_cam/injection.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flutter_month_picker/flutter_month_picker.dart';
 
 class MonthlyDataScreen extends StatelessWidget {
   const MonthlyDataScreen({Key? key}) : super(key: key);
@@ -45,39 +46,27 @@ class MonthlyDataScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      // await showDatePicker(
-                      //   context: context,
-                      //   initialDate: DateTime.now(),
-                      //   firstDate: DateTime(1900),
-                      //   lastDate: DateTime(2100),
-                      //   initialDatePickerMode: DatePickerMode.year,
-                      //   builder: (context, child) {
-                      //     return Theme(
-                      //       data: Theme.of(context).copyWith(
-                      //         colorScheme: const ColorScheme.light(
-                      //           primary: Colors.blue, // header background color
-                      //           onSurface: Colors.black,
-                      //         ),
-                      //       ),
-                      //       child: child!,
-                      //     );
-                      //   },
-                      // ).then((pickedDate) {
-                      //   if (pickedDate == null) {
-                      //   } else {
-                      //     String formattedDate =
-                      //         DateFormat('MM-yyyy').format(pickedDate);
-                      //     print(pickedDate.day);
+                       showMonthPicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2100),
+                      ).then((pickedDate) {
+                        if (pickedDate == null) {
+                        } else {
+                          String formattedDate =
+                              DateFormat('MM-yyyy').format(pickedDate);
+                          print(pickedDate.day);
 
-                      //     dateInput.text = formattedDate;
+                          dateInput.text = formattedDate;
 
-                      //     selectedMonth = pickedDate.month.toString();
-                      //     selectedYear = pickedDate.year.toString();
-                      //     BlocProvider.of<MonthlyWatcherBloc>(context).add(
-                      //         MonthlyWatcherEvent.getMonthlyData(
-                      //             selectedMonth, selectedYear));
-                      //   }
-                      // });
+                          selectedMonth = pickedDate.month.toString();
+                          selectedYear = pickedDate.year.toString();
+                          BlocProvider.of<MonthlyWatcherBloc>(context).add(
+                              MonthlyWatcherEvent.getMonthlyData(
+                                  selectedMonth, selectedYear));
+                        }
+                      });
                     }),
               );
             },

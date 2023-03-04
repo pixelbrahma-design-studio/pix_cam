@@ -35,7 +35,7 @@ class _DemoHomeState extends State<DemoHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        automaticallyImplyLeading: false,
+       // automaticallyImplyLeading: false,
       ),
       drawer: const Utils().isMobile(context) ? const DrawerWidget() : null,
       body: Row(
@@ -45,10 +45,10 @@ class _DemoHomeState extends State<DemoHome> {
             child: PageView(
               controller: _controller,
               physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                //const DailyDataScreen(),
-                //  WeeklyDataScreen(),
-                MonthlyDataScreen()
+              children:  [
+                const DailyDataScreen(),
+                 WeeklyDataScreen(),
+                const MonthlyDataScreen()
               ],
             ),
           ),
