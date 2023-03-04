@@ -52,14 +52,10 @@ class MonthlyDataScreen extends StatelessWidget {
                       ).then((pickedDate) {
                         if (pickedDate != null) {
                           print(pickedDate);
-                          String formattedDate =
-                              DateFormat('MM-yyyy').format(pickedDate);
-                          print(pickedDate.day);
-
-                          dateInput.text = formattedDate;
 
                           month = pickedDate.month;
                           year = pickedDate.year;
+                          dateInput.text = "  $month - $year";
                           BlocProvider.of<MonthlyWatcherBloc>(context).add(
                               MonthlyWatcherEvent.getMonthlyData(month, year));
                         }
