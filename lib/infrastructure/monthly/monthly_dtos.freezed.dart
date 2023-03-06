@@ -20,7 +20,7 @@ MonthlyDto _$MonthlyDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MonthlyDto {
-  int get month => throw _privateConstructorUsedError;
+  int get day => throw _privateConstructorUsedError;
   int get outCount => throw _privateConstructorUsedError;
   int get inCount => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $MonthlyDtoCopyWith<$Res> {
           MonthlyDto value, $Res Function(MonthlyDto) then) =
       _$MonthlyDtoCopyWithImpl<$Res, MonthlyDto>;
   @useResult
-  $Res call({int month, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -53,15 +53,15 @@ class _$MonthlyDtoCopyWithImpl<$Res, $Val extends MonthlyDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
-      month: null == month
-          ? _value.month
-          : month // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -87,7 +87,7 @@ abstract class _$$_MonthlyDtoCopyWith<$Res>
       __$$_MonthlyDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int month, int outCount, int inCount, int total});
+  $Res call({int day, int outCount, int inCount, int total});
 }
 
 /// @nodoc
@@ -101,15 +101,15 @@ class __$$_MonthlyDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? month = null,
+    Object? day = null,
     Object? outCount = null,
     Object? inCount = null,
     Object? total = null,
   }) {
     return _then(_$_MonthlyDto(
-      month: null == month
-          ? _value.month
-          : month // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
               as int,
       outCount: null == outCount
           ? _value.outCount
@@ -131,7 +131,7 @@ class __$$_MonthlyDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MonthlyDto extends _MonthlyDto {
   _$_MonthlyDto(
-      {required this.month,
+      {required this.day,
       required this.outCount,
       required this.inCount,
       required this.total})
@@ -141,7 +141,7 @@ class _$_MonthlyDto extends _MonthlyDto {
       _$$_MonthlyDtoFromJson(json);
 
   @override
-  final int month;
+  final int day;
   @override
   final int outCount;
   @override
@@ -151,7 +151,7 @@ class _$_MonthlyDto extends _MonthlyDto {
 
   @override
   String toString() {
-    return 'MonthlyDto(month: $month, outCount: $outCount, inCount: $inCount, total: $total)';
+    return 'MonthlyDto(day: $day, outCount: $outCount, inCount: $inCount, total: $total)';
   }
 
   @override
@@ -159,7 +159,7 @@ class _$_MonthlyDto extends _MonthlyDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MonthlyDto &&
-            (identical(other.month, month) || other.month == month) &&
+            (identical(other.day, day) || other.day == day) &&
             (identical(other.outCount, outCount) ||
                 other.outCount == outCount) &&
             (identical(other.inCount, inCount) || other.inCount == inCount) &&
@@ -168,7 +168,7 @@ class _$_MonthlyDto extends _MonthlyDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, month, outCount, inCount, total);
+  int get hashCode => Object.hash(runtimeType, day, outCount, inCount, total);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +186,7 @@ class _$_MonthlyDto extends _MonthlyDto {
 
 abstract class _MonthlyDto extends MonthlyDto {
   factory _MonthlyDto(
-      {required final int month,
+      {required final int day,
       required final int outCount,
       required final int inCount,
       required final int total}) = _$_MonthlyDto;
@@ -196,7 +196,7 @@ abstract class _MonthlyDto extends MonthlyDto {
       _$_MonthlyDto.fromJson;
 
   @override
-  int get month;
+  int get day;
   @override
   int get outCount;
   @override

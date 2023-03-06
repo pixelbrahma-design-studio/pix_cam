@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MonthlyWatcherEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String selectedMonth, String selectedYear)
+    required TResult Function(int selectedMonth, int selectedYear)
         getMonthlyData,
     required TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)
@@ -27,8 +27,7 @@ mixin _$MonthlyWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String selectedMonth, String selectedYear)?
-        getMonthlyData,
+    TResult? Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult? Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,
@@ -36,7 +35,7 @@ mixin _$MonthlyWatcherEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String selectedMonth, String selectedYear)? getMonthlyData,
+    TResult Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,
@@ -88,7 +87,7 @@ abstract class _$$_GetMonthlyDataCopyWith<$Res> {
           _$_GetMonthlyData value, $Res Function(_$_GetMonthlyData) then) =
       __$$_GetMonthlyDataCopyWithImpl<$Res>;
   @useResult
-  $Res call({String selectedMonth, String selectedYear});
+  $Res call({int selectedMonth, int selectedYear});
 }
 
 /// @nodoc
@@ -109,11 +108,11 @@ class __$$_GetMonthlyDataCopyWithImpl<$Res>
       null == selectedMonth
           ? _value.selectedMonth
           : selectedMonth // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == selectedYear
           ? _value.selectedYear
           : selectedYear // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -126,9 +125,9 @@ class _$_GetMonthlyData
   _$_GetMonthlyData(this.selectedMonth, this.selectedYear);
 
   @override
-  final String selectedMonth;
+  final int selectedMonth;
   @override
-  final String selectedYear;
+  final int selectedYear;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -167,7 +166,7 @@ class _$_GetMonthlyData
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String selectedMonth, String selectedYear)
+    required TResult Function(int selectedMonth, int selectedYear)
         getMonthlyData,
     required TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)
@@ -179,8 +178,7 @@ class _$_GetMonthlyData
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String selectedMonth, String selectedYear)?
-        getMonthlyData,
+    TResult? Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult? Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,
@@ -191,7 +189,7 @@ class _$_GetMonthlyData
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String selectedMonth, String selectedYear)? getMonthlyData,
+    TResult Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,
@@ -236,12 +234,11 @@ class _$_GetMonthlyData
 }
 
 abstract class _GetMonthlyData implements MonthlyWatcherEvent {
-  factory _GetMonthlyData(
-          final String selectedMonth, final String selectedYear) =
+  factory _GetMonthlyData(final int selectedMonth, final int selectedYear) =
       _$_GetMonthlyData;
 
-  String get selectedMonth;
-  String get selectedYear;
+  int get selectedMonth;
+  int get selectedYear;
   @JsonKey(ignore: true)
   _$$_GetMonthlyDataCopyWith<_$_GetMonthlyData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -324,7 +321,7 @@ class _$_MonthlyDataReceived
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String selectedMonth, String selectedYear)
+    required TResult Function(int selectedMonth, int selectedYear)
         getMonthlyData,
     required TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)
@@ -336,8 +333,7 @@ class _$_MonthlyDataReceived
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String selectedMonth, String selectedYear)?
-        getMonthlyData,
+    TResult? Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult? Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,
@@ -348,7 +344,7 @@ class _$_MonthlyDataReceived
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String selectedMonth, String selectedYear)? getMonthlyData,
+    TResult Function(int selectedMonth, int selectedYear)? getMonthlyData,
     TResult Function(
             Either<ServerFailure, KtList<Monthly>> failureOrMonthlyData)?
         monthlyDataReceived,

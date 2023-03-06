@@ -15,12 +15,16 @@ class MonthlyRepository implements IMonthlyRepository {
   final FirebaseFunctions _functions = FirebaseFunctions.instance;
   @override
   Future<Either<ServerFailure, KtList<Monthly>>> fetchMonthlyData(
-      String selectedMonth, String selectedYear) async {
+      int selectedMonth, int selectedYear) async {
     try {
-      HttpsCallable callable = _functions.httpsCallable("fetchMonthlyData");
-      final result = await callable
-          .call({'selectedMonth': selectedMonth, 'selectedYear': selectedYear});
+      print("$selectedMonth , $selectedYear");
+      HttpsCallable callable =
+          _functions.httpsCallable("fetchMonthlyDataQuery");
+
+      final result =
+          await callable.call({'month': selectedMonth, 'year': selectedYear});
       List dataList = result.data[0];
+      print(dataList);
       KtList<Monthly> monthyData = dataList.map((e) {
         return MonthlyDto.fromJson(jsonDecode(jsonEncode(e))).toDomain();
       }).toImmutableList();

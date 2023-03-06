@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:pix_cam/application/hourly/hourly_watcher/hourly_watcher_bloc.dart';
 import 'package:pix_cam/application/monthly/monthly_watcher/monthly_watcher_bloc.dart';
-import 'package:pix_cam/domain/hourly/hourly.dart';
 import 'package:pix_cam/domain/monthly/monthly.dart';
-import 'package:pix_cam/infrastructure/hourly/hourly_repository.dart';
 import 'package:pix_cam/injection.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_month_picker/flutter_month_picker.dart';
 
 class MonthlyDataScreen extends StatelessWidget {
-  const MonthlyDataScreen({Key? key}) : super(key: key);
+  MonthlyDataScreen({Key? key}) : super(key: key);
+  int month = DateTime.now().month;
+  int year = DateTime.now().year;
+
+  TextEditingController dateInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    String selectedMonth = DateTime.now().month.toString();
-    String selectedYear = DateTime.now().year.toString();
-
-    TextEditingController dateInput = TextEditingController();
-
+    dateInput.text = "  $month - $year";
+    print("inside ui");
     return BlocProvider<MonthlyWatcherBloc>(
       create: (context) => getIt<MonthlyWatcherBloc>()
         ..add(
-          MonthlyWatcherEvent.getMonthlyData(selectedMonth, selectedYear),
+          MonthlyWatcherEvent.getMonthlyData(month, year),
         ),
       child: Column(
         children: [
@@ -46,25 +44,20 @@ class MonthlyDataScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                       showMonthPicker(
+                      showMonthPicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(1900),
                         lastDate: DateTime(2100),
                       ).then((pickedDate) {
-                        if (pickedDate == null) {
-                        } else {
-                          String formattedDate =
-                              DateFormat('MM-yyyy').format(pickedDate);
-                          print(pickedDate.day);
+                        if (pickedDate != null) {
+                          print(pickedDate);
 
-                          dateInput.text = formattedDate;
-
-                          selectedMonth = pickedDate.month.toString();
-                          selectedYear = pickedDate.year.toString();
+                          month = pickedDate.month;
+                          year = pickedDate.year;
+                          dateInput.text = "  $month - $year";
                           BlocProvider.of<MonthlyWatcherBloc>(context).add(
-                              MonthlyWatcherEvent.getMonthlyData(
-                                  selectedMonth, selectedYear));
+                              MonthlyWatcherEvent.getMonthlyData(month, year));
                         }
                       });
                     }),
@@ -81,14 +74,14 @@ class MonthlyDataScreen extends StatelessWidget {
                 success: (value) {
                   print('inside sload success');
 
-                  print('Inside UI: ${value.monthlyData}');
+                  print('Inside month UI: ${value.monthlyData}');
 
                   List<Monthly> dataList = value.monthlyData.asList();
 
                   return SfCartesianChart(
                     primaryXAxis: CategoryAxis(),
                     // Chart title
-                    title: ChartTitle(text: 'Daily Count Data'),
+                    title: ChartTitle(text: 'Monthly Count Data'),
                     // Enable legend
                     legend: Legend(
                       isVisible: true,
@@ -101,10 +94,10 @@ class MonthlyDataScreen extends StatelessWidget {
                       ColumnSeries<Monthly, String>(
                         dataSource: dataList,
                         xValueMapper: (Monthly monthly, _) =>
-                            monthly.month.toString(),
+                            monthly.day.toString(),
                         yValueMapper: (Monthly hourly, _) => hourly.inCount,
                         name: 'In Count',
-                        yAxisName: 'MONTH',
+                        yAxisName: 'DAY',
                         xAxisName: 'COUNT',
 
                         // Enable data label
@@ -114,10 +107,10 @@ class MonthlyDataScreen extends StatelessWidget {
                       ColumnSeries<Monthly, String>(
                         dataSource: dataList,
                         xValueMapper: (Monthly monthly, _) =>
-                            monthly.month.toString(),
+                            monthly.day.toString(),
                         yValueMapper: (Monthly monthly, _) => monthly.outCount,
                         name: 'Out Count',
-                        yAxisName: 'MONTH',
+                        yAxisName: 'DAY',
                         xAxisName: 'COUNT',
 
                         // Enable data label
